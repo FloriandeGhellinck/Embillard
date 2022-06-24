@@ -2,13 +2,15 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import Link from "next/link";
+import { useRouter } from "next/router";
 /* eslint-disable @next/next/no-img-element */
 
 const navigation = [
-  { name: "Home", href: "../pages/home_page.tsx", current: true },
-  { name: "Play a game", href: "../views/play.tsx", current: false },
-  { name: "Tournament", href: "#", current: false },
-  { name: "Ranking", href: "#", current: false },
+  { name: "Home", href: "/home_page", current: true },
+  { name: "Play a game", href: "/play_game", current: false },
+  { name: "Tournament", href: "/tournament", current: false },
+  { name: "Ranking", href: "/ranking", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -16,6 +18,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
@@ -44,19 +48,21 @@ export default function Navbar() {
                 <div className="hidden sm:block sm:ml-6 font-poppins">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-embie-yellow-500 text-white tracking-wide"
-                            : "text-embie-blue-dark-500 hover:bg-embie-yellow-300 hover:text-white tracking-wide",
-                          "px-3 py-2 rounded-md text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
+                      <Link key={item.name} href={item.href}>
+                        <a
+                          className={classNames(
+                            router.pathname === item.href
+                              ? "bg-embie-yellow-500 text-white tracking-wide"
+                              : "text-embie-blue-dark-500 hover:bg-embie-yellow-300 hover:text-white tracking-wide",
+                            "px-3 py-2 rounded-md text-sm font-medium"
+                          )}
+                          aria-current={
+                            router.pathname === item.href ? "page" : undefined
+                          }
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </div>
                 </div>

@@ -1,8 +1,12 @@
 import React from "react";
+import { Header } from "../components/header";
+import Navbar from "../components/navbar";
 
-const Play = () => {
+const Ranking = () => {
   return (
     <>
+      <Header />
+      <Navbar />
       <div className="flex h-screen bg-white text-black">
         <p>
           {" "}
@@ -16,4 +20,4 @@ const Play = () => {
   );
 };
 
-export default Play;
+export default Ranking;
