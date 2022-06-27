@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../components/header";
 import Navbar from "../components/navbar";
-import { useState } from "react";
+import Modal from "../components/modal";
 
 const games = [
   {
@@ -20,26 +20,26 @@ const games = [
 ];
 
 const Play = () => {
-  const [showform, setShowform] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const showForm = () => {
-    setShowform(!showform);
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
   };
 
   return (
     <>
       <Header />
       <Navbar />
-
+      {showModal ? <Modal show={showModal} /> : <></>}
       <div className="h-screen font-poppins bg-gradient-to-r from-embie-orange-200 via-embie-yellow-200 to-embie-blue-light-300 ">
         <div className="flex flex-col items-center justify-center pt-28">
-          <div className="flex mt-14 justify-center w-8/12  border-rounded-full">
-            <button
+          <div className="flex mt-8 justify-center w-8/12  border-rounded-full">
+            {/* <button
               type="button"
               onClick={showForm}
-              className="mt-14 mb-14 relative block border-2 border-gray-800 rounded-lg p-12 text-center hover:border-gray-400"
+              className="shadow-xl mt-14 mb-14 relative block border-2 border-gray-800 rounded-lg p-12 text-center hover:border-gray-400"
             >
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col justify-center items-center ">
                 <img
                   className="w-14 h-14 "
                   src="../billiard.png"
@@ -50,6 +50,14 @@ const Play = () => {
                   Enter a new result
                 </span>
               </div>
+            </button> */}
+
+            <button
+              type="button"
+              className="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
+              onClick={handleToggleModal}
+            >
+              Enter a score
             </button>
           </div>
 
@@ -57,7 +65,7 @@ const Play = () => {
             <div className="">
               <div className="relative sm:py-16">
                 <div className="mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8w-8/12">
-                  <div className="relative rounded-2xl px-6 py-10 bg-white overflow-hidden shadow-xl sm:px-12 sm:py-20">
+                  <div className="relative rounded-2xl px-6 py-10 bg-embie-yellow-200 overflow-hidden shadow-2xl sm:px-12 sm:py-20">
                     <div className="relative">
                       <div className="sm:text-center pb-4">
                         <h2 className="text-3xl font-extrabold text-black tracking-tight sm:text-4xl">
@@ -68,7 +76,7 @@ const Play = () => {
                     <div className="px-4 sm:px-6 lg:px-8 ">
                       <div className="mt-8 flex flex-col ">
                         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8  bg-white">
+                          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <table className="min-w-full divide-y divide-gray-300">
                               <thead className="">
                                 <tr>
@@ -191,3 +199,6 @@ const Play = () => {
 };
 
 export default Play;
+function setOpen(arg0: boolean): void {
+  throw new Error("Function not implemented.");
+}
