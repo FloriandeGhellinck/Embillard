@@ -19,7 +19,9 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
 
   const [playerOne, setPlayerOne] = useState(people[0]);
 
-  const [playerTwo, setPlayerTwo] = useState("");
+  const [playerTwo, setPlayerTwo] = useState(people[1]);
+
+  const [isMyInputFocused, setIsMyInputFocused] = useState("");
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -72,7 +74,10 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
                       </label>
                     </form>
 
-                    <form className="mt-2" onChange={(e) => setPlayerTwo}>
+                    <form
+                      className="mt-2"
+                      onChange={(e: any) => setPlayerTwo(e.target.value)}
+                    >
                       <label className="m-8">
                         {" "}
                         Player Two
@@ -89,6 +94,65 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
                         </select>
                       </label>
                     </form>
+                    <hr className="m-2"></hr>
+                    <div className="">
+                      <h2 className="text-center">Who is the winner?</h2>
+                      <div className="p-2 flex flex-row justify-center">
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
+                          onFocus={() =>
+                            //@ts-ignore
+                            setIsMyInputFocused(playerOne)
+                          }
+                        >
+                          {" "}
+                          {playerOne}
+                        </button>
+                        <div className="m-2"></div>
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
+                          onFocus={() =>
+                            //@ts-ignore
+                            setIsMyInputFocused(playerTwo)
+                          }
+                        >
+                          {" "}
+                          {playerTwo}
+                        </button>
+                      </div>
+                    </div>
+                    <hr className="m-2"></hr>
+                    <div className="">
+                      <h2 className="text-center">
+                        How did {isMyInputFocused.toString()} win ?
+                      </h2>
+                      <div className="p-2 flex flex-row justify-center">
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500 "
+                        >
+                          {" "}
+                          Normal win
+                        </button>
+                        <div className="m-2"></div>
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
+                        >
+                          {" "}
+                          Eight ball in the hole
+                        </button>
+                      </div>
+                    </div>
+                    <hr className="m-2"></hr>
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Sumbit
+                    </button>
                   </div>
                 </div>
                 {/* <div className="mt-5 sm:mt-6">
