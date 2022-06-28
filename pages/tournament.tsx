@@ -7,7 +7,7 @@ const Tournament = () => {
     <>
       <Header />
       <Navbar />
-      <div className="flex h-screen bg-white text-black">
+      <div className="flex h-screen text-black bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200">
         <p>
           {" "}
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro

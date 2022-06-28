@@ -65,7 +65,7 @@ const Play = () => {
             <div className="">
               <div className="relative sm:py-16">
                 <div className="mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8w-8/12">
-                  <div className="relative rounded-2xl px-6 py-10 bg-embie-yellow-200 overflow-hidden shadow-2xl sm:px-12 sm:py-20">
+                  <div className="relative rounded-2xl px-6 py-10 bg-white overflow-hidden shadow-2xl sm:px-12 sm:py-20">
                     <div className="relative">
                       <div className="sm:text-center pb-4">
                         <h2 className="text-3xl font-extrabold text-black tracking-tight sm:text-4xl">

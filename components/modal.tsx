@@ -15,13 +15,15 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
     "Yann",
     "Dams",
     "Gauthier",
+    "Florian",
   ];
 
   const [playerOne, setPlayerOne] = useState(people[0]);
 
   const [playerTwo, setPlayerTwo] = useState(people[1]);
 
-  const [isMyInputFocused, setIsMyInputFocused] = useState("");
+  const [winner, setWinner] = useState("");
+  const [typeOfWin, setTypeOfWin] = useState(true);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -38,7 +40,7 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="fixed z-10 inset-0 overflow-y-auto font-poppins">
           <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
             <Transition.Child
               as={Fragment}
@@ -55,115 +57,127 @@ const Modal: FC<{ show: boolean }> = ({ show }) => {
                     <h2 className="text-indigo-600 font-semibold tracking-wide uppercase">
                       Enter your Score
                     </h2>
-                    <form
-                      className="mt-2"
-                      onChange={(e: any) => {
-                        setPlayerOne(e.target.value);
-                      }}
-                    >
-                      <label className="m-8">
-                        {" "}
-                        Player One
-                        <select className="ml-8">
-                          {people.map((persons, i) => (
-                            <option key={i} value={persons}>
-                              {persons}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    </form>
-
-                    <form
-                      className="mt-2"
-                      onChange={(e: any) => setPlayerTwo(e.target.value)}
-                    >
-                      <label className="m-8">
-                        {" "}
-                        Player Two
-                        <select className="ml-8">
-                          {people
-                            .filter((person) => !(person === playerOne))
-                            .map((perso, y) => (
-                              <option key={y} value={perso}>
-                                {" "}
-                                {/* disabled = value === player 1*/}
-                                {perso}
+                    <form className="mt-2">
+                      <div>
+                        <label className="m-8">
+                          {" "}
+                          Player One
+                          <select
+                            className="ml-8"
+                            onChange={(e: any) => {
+                              setPlayerOne(e.target.value);
+                            }}
+                          >
+                            {people.map((persons, i) => (
+                              <option key={i} value={persons}>
+                                {persons}
                               </option>
                             ))}
-                        </select>
+                          </select>
+                        </label>
+                      </div>
+                      <div className="mt-2">
+                        <label className="mt-2">
+                          {" "}
+                          Player Two
+                          <select
+                            className="ml-8"
+                            onChange={(e: any) => setPlayerTwo(e.target.value)}
+                          >
+                            {people
+                              .filter((person) => !(person === playerOne))
+                              .map((perso, y) => (
+                                <option key={y} value={perso}>
+                                  {" "}
+                                  {/* disabled = value === player 1*/}
+                                  {perso}
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                      </div>
+                      <hr className="m-2"></hr>
+                      <label>
+                        When did you play?
+                        <input type="date" className="ml-2" required />
                       </label>
+                      <hr className="m-2"></hr>
+
+                      <div>
+                        <label className="text-center text-gray-900 ">
+                          Who&apos;s the winner?
+                        </label>
+
+                        <div className="space-y-4 sm:flex sm:items-center text-center sm:space-y-0 sm:space-x-10 mt-2 mb-3">
+                          <input
+                            name="winner"
+                            id="playerOne"
+                            value={playerOne}
+                            required
+                            type="radio"
+                            className="focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
+                            onChange={(e: any) =>
+                              //@ts-ignore
+                              setWinner(e.target.value)
+                            }
+                          />
+                          <label htmlFor="playerOne">{playerOne}</label>
+                          <input
+                            name="winner"
+                            value={playerTwo}
+                            required
+                            id="playerTwo"
+                            type="radio"
+                            className="focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
+                            onChange={(e: any) =>
+                              //@ts-ignore
+                              setWinner(e.target.value)
+                            }
+                          />
+                          <label htmlFor="playerTwo">{playerTwo}</label>
+                        </div>
+                      </div>
+                      <hr className="m-2"></hr>
+                      <div>
+                        <h2 className="text-center font-medium text-gray-900">
+                          How did {winner} win?
+                        </h2>
+
+                        <div className="space-y-4 sm:flex sm:items-center text-center sm:space-y-0 sm:space-x-10 mt-2 mb-3 ">
+                          <input
+                            name="test"
+                            value="eight ball"
+                            required
+                            type="radio"
+                            className="focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
+                            onChange={() => setTypeOfWin(true)}
+                          />
+                          <label>Eight ball</label>
+                          <input
+                            name="test"
+                            value="normal win"
+                            type="radio"
+                            className="focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
+                            onChange={() => setTypeOfWin(false)}
+                            required
+                          />
+                          <label>Normal Win</label>
+                        </div>
+                      </div>
+
+                      <hr className="m-2"></hr>
+
+                      <button
+                        type="submit"
+                        className="mt-3 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
+                        //@ts-ignore
+                        onClick={console.log(winner)}
+                      >
+                        Sumbit
+                      </button>
                     </form>
-                    <hr className="m-2"></hr>
-                    <div className="">
-                      <h2 className="text-center">Who is the winner?</h2>
-                      <div className="p-2 flex flex-row justify-center">
-                        <button
-                          type="button"
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
-                          onFocus={() =>
-                            //@ts-ignore
-                            setIsMyInputFocused(playerOne)
-                          }
-                        >
-                          {" "}
-                          {playerOne}
-                        </button>
-                        <div className="m-2"></div>
-                        <button
-                          type="button"
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
-                          onFocus={() =>
-                            //@ts-ignore
-                            setIsMyInputFocused(playerTwo)
-                          }
-                        >
-                          {" "}
-                          {playerTwo}
-                        </button>
-                      </div>
-                    </div>
-                    <hr className="m-2"></hr>
-                    <div className="">
-                      <h2 className="text-center">
-                        How did {isMyInputFocused.toString()} win ?
-                      </h2>
-                      <div className="p-2 flex flex-row justify-center">
-                        <button
-                          type="button"
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500 "
-                        >
-                          {" "}
-                          Normal win
-                        </button>
-                        <div className="m-2"></div>
-                        <button
-                          type="button"
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:bg-embie-blue-light-500"
-                        >
-                          {" "}
-                          Eight ball in the hole
-                        </button>
-                      </div>
-                    </div>
-                    <hr className="m-2"></hr>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Sumbit
-                    </button>
                   </div>
                 </div>
-                {/* <div className="mt-5 sm:mt-6">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                    onClick={() => setOpen(false)}
-                  >
-                    Go back to dashboard
-                  </button>
-                </div> */}
               </Dialog.Panel>
             </Transition.Child>
           </div>
