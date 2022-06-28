@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 /* eslint-disable @next/next/no-img-element */
 
 const navigation = [
-  { name: "Home", href: "/home_page", current: true },
-  { name: "Play a game", href: "/play_game", current: false },
+  { name: "Home", href: "/home-page", current: true },
+  { name: "Play a game", href: "/play-game", current: false },
   { name: "Tournament", href: "/tournament", current: false },
   { name: "Ranking", href: "/ranking", current: false },
 ];
