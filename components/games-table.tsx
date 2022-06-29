@@ -1,13 +1,7 @@
 import { FC } from "react";
+import { GameList } from "../Types/game";
 
-type GamesProps = {
-  date: string;
-  winner: string;
-  looser: string;
-  typeOfWin: string;
-}[];
-
-const GamesTable: FC<{ games: GamesProps }> = ({ games }) => {
+const GamesTable: FC<{ games: GameList }> = ({ games }) => {
   // const props = {
   //   games: [
   //     {
@@ -24,12 +18,16 @@ const GamesTable: FC<{ games: GamesProps }> = ({ games }) => {
   //     },
   //   ],
   // };
+
   return (
     <div className="relative rounded-2xl px-6 py-10 bg-white overflow-hidden shadow-2xl sm:px-12 sm:py-20">
       <div className="sm:text-center pb-4">
         <h2 className="text-3xl font-extrabold text-black tracking-tight sm:text-4xl">
           They had fun together
         </h2>
+        <h3 className="text-2xl tracking-tight">
+          Number of play games : {games.length}
+        </h3>
       </div>
       <div className="px-4 sm:px-6 lg:px-8 ">
         <div className="mt-8 flex flex-col ">

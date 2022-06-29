@@ -1,72 +1,42 @@
-import React, { FC, useState } from "react";
-import Modal from "../components/modal";
+import React, { useState } from "react";
 import { GamesTable } from "../components/games-table";
 import { format } from "date-fns";
-import { TypeOfWin } from "../Types/game";
+import { GameList } from "../Types/game";
+import NewGameModal from "../components/newGameModal";
 
-const DEFAULT_GAMES = [
+const DEFAULT_GAMES: GameList = [
   {
     date: "24/06/2022",
     winner: "Florian",
     looser: "Gauthier",
-    typeOfWin: "Yes",
+    typeOfWin: "eight_ball",
   },
   {
     date: "24/06/2022",
     winner: "Malo",
     looser: "Base",
-    typeOfWin: "No",
+    typeOfWin: "normal_win",
   },
 ];
 
-const NewGameModal: FC<{
-  handleNewGame: (e: {
-    playerOne: string;
-    playerTwo: string;
-    date: Date;
-    winner: string;
-    typeOfWin: TypeOfWin;
-  }) => void;
-}> = ({ handleNewGame }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
-  };
-
-  return (
-    <>
-      {showModal && (
-        <Modal
-          isOpen={showModal}
-          setIsOpen={setShowModal}
-          handleNewGame={handleNewGame}
-        />
-      )}
-      <button
-        type="button"
-        className="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
-        onClick={handleToggleModal}
-      >
-        Enter a score
-      </button>
-    </>
-  );
-};
-
 const Play = () => {
-  const [games, setGames] = useState(DEFAULT_GAMES);
+  const [games, setGames] = useState<GameList>(DEFAULT_GAMES);
 
-  const handleNewGame: (values: any) => void = (values) => {
-    setGames((prevState) => [
-      ...prevState,
-      {
-        date: format(values.date, "dd/MM/yyyy"),
-        winner: values.winner,
-        looser: values.looser,
-        typeOfWin: values.typeOfWin,
-      },
-    ]);
+  const handleNewGame = (props) => {
+    let newGames: GameList = [];
+
+    for (let i = 0; i < games.length; i++) {
+      newGames.push(games[i]);
+    }
+
+    newGames.push({
+      date: format(props.date, "dd/MM/yyyy"),
+      winner: props.winner,
+      looser: props.looser,
+      typeOfWin: props.typeOfWin,
+    });
+
+    setGames(newGames);
   };
 
   return (
