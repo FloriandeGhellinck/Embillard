@@ -1,7 +1,5 @@
 import React from "react";
 import ReactTypingEffectDemo from "../components/TyppingEffect";
-import { Header } from "../components/header";
-import Navbar from "../components/navbar";
 
 const Home_Page = () => {
   return (

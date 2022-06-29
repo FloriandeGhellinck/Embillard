@@ -7,9 +7,23 @@ type GamesProps = {
   typeOfWin: string;
 }[];
 
-const GamesTable: FC<{
-  games: GamesProps;
-}> = ({ games }) => {
+const GamesTable: FC<{ games: GamesProps }> = ({ games }) => {
+  // const props = {
+  //   games: [
+  //     {
+  //       date: "today",
+  //       winner: "bouchra",
+  //       looser: "base",
+  //       typeOfWin: "8ball",
+  //     },
+  //     {
+  //       date: "yesterday",
+  //       winner: "base",
+  //       looser: "bouchra",
+  //       typeOfWin: "normal",
+  //     },
+  //   ],
+  // };
   return (
     <div className="relative rounded-2xl px-6 py-10 bg-white overflow-hidden shadow-2xl sm:px-12 sm:py-20">
       <div className="sm:text-center pb-4">
@@ -100,12 +114,6 @@ const GamesTable: FC<{
                         />
                       </svg>{" "}
                     </th>
-                    <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-6 md:pr-0"
-                    >
-                      <span className="sr-only">Edit</span>
-                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -134,5 +142,33 @@ const GamesTable: FC<{
     </div>
   );
 };
+
+// //@ts-ignore
+// const CompProps = (props) => {
+//   return (
+//     <>
+//       <div>{props.a}</div>
+//       <div>{props.b}</div>
+//     </>
+//   );
+// };
+
+// //@ts-ignore
+// const CompList = (a: string, b: string) => {
+//   return (
+//     <>
+//       <div>{a}</div>
+//       <div>{b}</div>
+//     </>
+//   );
+// };
+
+// const composantUtilise = () => {
+//   return (
+//     <>
+//       <CompList a="titre" b="contenu" />
+//     </>
+//   );
+// };
 
 export { GamesTable };

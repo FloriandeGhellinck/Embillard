@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import Modal from "../components/modal";
 import { GamesTable } from "../components/games-table";
 import { format } from "date-fns";
+import { TypeOfWin } from "../Types/game";
 
 const DEFAULT_GAMES = [
   {
@@ -16,12 +17,17 @@ const DEFAULT_GAMES = [
     looser: "Base",
     typeOfWin: "No",
   },
-  // More people...
 ];
 
-const NewGameModal: FC<{ handleNewGame: (e: any) => void }> = ({
-  handleNewGame,
-}) => {
+const NewGameModal: FC<{
+  handleNewGame: (e: {
+    playerOne: string;
+    playerTwo: string;
+    date: Date;
+    winner: string;
+    typeOfWin: TypeOfWin;
+  }) => void;
+}> = ({ handleNewGame }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleToggleModal = () => {
@@ -52,15 +58,12 @@ const Play = () => {
   const [games, setGames] = useState(DEFAULT_GAMES);
 
   const handleNewGame: (values: any) => void = (values) => {
-    const looser =
-      values.playerOne === values.winner ? values.playerTwo : values.playerOne;
-
     setGames((prevState) => [
       ...prevState,
       {
         date: format(values.date, "dd/MM/yyyy"),
         winner: values.winner,
-        looser: looser,
+        looser: values.looser,
         typeOfWin: values.typeOfWin,
       },
     ]);
