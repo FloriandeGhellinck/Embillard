@@ -1,4 +1,4 @@
-export type TypeOfWin = "eight_ball" | "normal_win" | null;
+export type TypeOfWin = "🎱" | "🥇" | null;
 
 export type Game = {
   date: string;

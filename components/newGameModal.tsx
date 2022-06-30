@@ -4,8 +4,7 @@ import Modal from "./modal";
 
 const NewGameModal: FC<{
   handleNewGame: (e: {
-    playerOne: string;
-    playerTwo: string;
+    looser: string;
     date: Date;
     winner: string;
     typeOfWin: TypeOfWin;
@@ -28,7 +27,7 @@ const NewGameModal: FC<{
       )}
       <button
         type="button"
-        className="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
+        className=" inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
         onClick={handleToggleModal}
       >
         Enter a score

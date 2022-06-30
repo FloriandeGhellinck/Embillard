@@ -26,7 +26,7 @@ const Modal: FC<{
 
   const [winner, setWinner] = useState<null | string>(null);
 
-  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("normal_win");
+  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇");
 
   const isFormValid = looser && date && winner && typeOfWin;
 
@@ -114,17 +114,17 @@ const Modal: FC<{
             <input
               id="eight_ball"
               name="type_of_win"
-              value="eight_ball"
+              value="🎱"
               type="radio"
               className="hidden"
-              checked={typeOfWin === "eight_ball"}
+              checked={typeOfWin === "🎱"}
               onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
               htmlFor="eight_ball"
               className={`p-2 w-auto border border-embie-blue-light-500 rounded ${
-                typeOfWin === "eight_ball"
+                typeOfWin === "🎱"
                   ? "bg-embie-blue-light-500 text-white"
                   : "text-embie-blue-light-500"
               }`}
@@ -134,16 +134,16 @@ const Modal: FC<{
             <input
               id="normal_win"
               name="type_of_win"
-              value="normal_win"
+              value="🥇"
               type="radio"
-              checked={typeOfWin === "normal_win"}
+              checked={typeOfWin === "🥇"}
               className="hidden focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
               onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
               className={`w-auto p-2 border border-embie-blue-light-500 rounded ${
-                typeOfWin === "normal_win"
+                typeOfWin === "🥇"
                   ? "bg-embie-blue-light-500 text-white"
                   : "text-embie-blue-light-500"
               }`}
