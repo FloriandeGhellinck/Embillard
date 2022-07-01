@@ -5,7 +5,7 @@ import RankingTable from "../components/ranking-table";
 const results = [
   {
     ranking: "#1",
-    name: "Base",
+    name: "Florian",
     points: 17,
     gameswonnormal: 5,
     gameswoneight: 4,
