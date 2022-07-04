@@ -1,19 +1,18 @@
-import gql from "graphql-tag"
-import { FC, useState } from "react"
-import { useQuery } from "react-query"
-import { TypeOfWin } from "../Types/game"
-import { hasura } from "../utils/gql"
-import Modal from "./modal"
+import gql from "graphql-tag";
+import { FC, useState } from "react";
+import { useQuery } from "react-query";
+import { hasura } from "../utils/gql";
+import Modal from "./modal";
 
 // handleNewGame: (e: { looser: string; date: Date; winner: string; typeOfWin: TypeOfWin }) => void
 
 const NewGameModal: FC = () => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const handleToggleModal = () => {
-    usersQuery.refetch()
-    setShowModal(!showModal)
-  }
+    usersQuery.refetch();
+    setShowModal(!showModal);
+  };
 
   const usersQuery = useQuery(
     "users",
@@ -29,9 +28,9 @@ const NewGameModal: FC = () => {
         `
       ),
     { enabled: false }
-  )
+  );
 
-  const users = usersQuery.data?.users
+  const users = usersQuery.data?.users;
 
   return (
     <>
@@ -47,7 +46,7 @@ const NewGameModal: FC = () => {
         {usersQuery.isLoading ? "Loading" : "Enter a score"}
       </button>
     </>
-  )
-}
+  );
+};
 
-export default NewGameModal
+export default NewGameModal;

@@ -20,20 +20,6 @@ const ReactTypingEffectDemo = () => {
           eraseDelay={1500000000000}
           typingDelay={2000}
           cursor={undefined}
-          // displayTextRenderer={(text, i) => {
-          //     return (
-          //       <h1>
-          //         {text.split("").map((char, i) => {
-          //           const key = `${i}`;
-          //           return (
-          //             <span key={key} style={i % 2 === 0 ? {} : {}}>
-          //               {char}
-          //             </span>
-          //           );
-          //         })}
-          //       </h1>
-          //     );
-          //   }}
         />
       </div>
     </>

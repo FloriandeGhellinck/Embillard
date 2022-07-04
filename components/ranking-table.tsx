@@ -1,10 +1,4 @@
 const RankingTable = ({ result }) => {
-  //   const point = ({result}) => {
-  //     {result.map((test, i) => (
-  //         key={i}
-  //        <p> {test.gamewonnormal}</p>
-  //         ))}}
-
   return (
     <div className="px-4 sm:px-6 lg:px-8 flex justify-center">
       <div className="sm:flex sm:items-center"></div>

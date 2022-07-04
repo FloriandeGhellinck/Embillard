@@ -1,39 +1,39 @@
-import { FC, useState } from "react"
-import { format, formatISO, formatRFC3339 } from "date-fns"
-import { TypeOfWin } from "../Types/game"
-import ModalTransition from "./modal-transition"
-import { useMutation, useQueryClient } from "react-query"
-import { hasura } from "../utils/gql"
-import gql from "graphql-tag"
+import { FC, useState } from "react";
+import { format, formatISO, formatRFC3339 } from "date-fns";
+import { TypeOfWin } from "../Types/game";
+import ModalTransition from "./modal-transition";
+import { useMutation, useQueryClient } from "react-query";
+import { hasura } from "../utils/gql";
+import gql from "graphql-tag";
 
 const Modal: FC<{
-  isOpen: boolean
-  users: { first_name: string; id: string }[]
-  setIsOpen: (value: boolean) => void
+  isOpen: boolean;
+  users: { first_name: string; id: string }[];
+  setIsOpen: (value: boolean) => void;
 }> = ({ isOpen, setIsOpen, users }) => {
-  const [looser, setLooser] = useState<null | string>(null)
+  const [looser, setLooser] = useState<null | string>(null);
 
-  const [date, setDate] = useState<null | Date>(new Date())
+  const [date, setDate] = useState<null | Date>(new Date());
 
-  const [winner, setWinner] = useState<null | string>(null)
+  const [winner, setWinner] = useState<null | string>(null);
 
-  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇")
+  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇");
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const isFormValid = looser && date && winner && typeOfWin
+  const isFormValid = looser && date && winner && typeOfWin;
 
   const newGameMutation = useMutation(
     "ey",
     async (e: any) => {
-      e.preventDefault()
+      e.preventDefault();
 
       const newGameValues = {
         date: formatRFC3339(date),
         winner: winner,
         looser: looser,
         typeOfWin: typeOfWin,
-      }
+      };
 
       const response = await hasura(
         gql`
@@ -56,17 +56,17 @@ const Modal: FC<{
           }
         `,
         newGameValues
-      )
+      );
 
-      return response
+      return response;
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("games-history")
-        setIsOpen(false)
+        queryClient.invalidateQueries("games-history");
+        setIsOpen(false);
       },
     }
-  )
+  );
 
   return (
     <ModalTransition isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -86,15 +86,15 @@ const Modal: FC<{
               required
               className="ml-8 w-36"
               onChange={(e: any) => {
-                setWinner(e.target.value)
+                setWinner(e.target.value);
               }}
             >
               <option value={"noone"} disabled>
                 Pick winner
               </option>
               {users
-                .filter(person => !(person.id === looser))
-                .map(person => (
+                .filter((person) => !(person.id === looser))
+                .map((person) => (
                   <option key={person.id} value={person.id}>
                     {person.first_name}
                   </option>
@@ -113,8 +113,8 @@ const Modal: FC<{
                 Pick looser
               </option>
               {users
-                .filter(person => !(person.id === winner))
-                .map(person => (
+                .filter((person) => !(person.id === winner))
+                .map((person) => (
                   <option key={person.id} value={person.id}>
                     {person.first_name}
                   </option>
@@ -131,15 +131,12 @@ const Modal: FC<{
               representation: "date",
             })}
             required
-            onChange={e => setDate(e.target.valueAsDate)}
+            onChange={(e) => setDate(e.target.valueAsDate)}
           />
         </div>
-        {/* {playerOne && playerTwo && ( */}
-
-        {/* )} */}
         <div className="w-full pt-4 flex flex-col justify-between">
           <h2 className="text-center font-medium text-gray-900">
-            How did {users.find(user => user.id === winner)?.first_name} win?
+            How did {users.find((user) => user.id === winner)?.first_name} win?
           </h2>
 
           <div className=" sm:flex sm:items-center md:gap-2 sm:gap-2 text-center sm:space-y-0 sm:space-x-10 mt-2 mb-3 ">
@@ -150,7 +147,7 @@ const Modal: FC<{
               type="radio"
               className="hidden"
               checked={typeOfWin === "🎱"}
-              onChange={e => setTypeOfWin(e.target.value as TypeOfWin)}
+              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
@@ -170,7 +167,7 @@ const Modal: FC<{
               type="radio"
               checked={typeOfWin === "🥇"}
               className="hidden focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
-              onChange={e => setTypeOfWin(e.target.value as TypeOfWin)}
+              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
@@ -195,6 +192,6 @@ const Modal: FC<{
         </button>
       </form>
     </ModalTransition>
-  )
-}
-export default Modal
+  );
+};
+export default Modal;
