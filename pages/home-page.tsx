@@ -1,5 +1,5 @@
-import React from "react";
-import ReactTypingEffectDemo from "../components/TyppingEffect";
+import React from "react"
+import ReactTypingEffectDemo from "../components/TyppingEffect"
 
 const Home_Page = () => {
   return (
@@ -11,7 +11,7 @@ const Home_Page = () => {
         <p> </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home_Page;
+export default Home_Page
