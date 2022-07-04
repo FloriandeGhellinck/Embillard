@@ -1,10 +1,8 @@
-import Navbar from "../components/navbar";
-import Home_Page from "./home-page";
-import { NextPage } from "next";
-import { Header } from "../components/header";
+import Home_Page from "./home-page"
+import { FC } from "react"
 
-const Home: NextPage = () => {
-  return <Home_Page />;
-};
+const Home: FC = () => {
+  return <Home_Page />
+}
 
-export default Home;
+export default Home

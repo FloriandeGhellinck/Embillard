@@ -16,3 +16,30 @@ array_relationships:
         table:
           schema: public
           name: games
+insert_permissions:
+  - role: anonymous
+    permission:
+      check: {}
+      columns:
+        - first_name
+        - id
+      backend_only: false
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - first_name
+        - id
+      filter: {}
+update_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - first_name
+        - id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: anonymous
+    permission:
+      filter: {}

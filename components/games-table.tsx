@@ -1,7 +1,32 @@
-import { FC } from "react";
-import { GameList } from "../Types/game";
+import gql from "graphql-tag"
+import { FC } from "react"
+import { useQuery } from "react-query"
+import { formatDate } from "../utils/date"
+import { hasura } from "../utils/gql"
 
-const GamesTable: FC<{ games: GameList }> = ({ games }) => {
+const GamesTable: FC = () => {
+  const usersGamesQuery = useQuery(
+    "games-history",
+    () =>
+      hasura(gql`
+        query UserGames {
+          games(order_by: { created_at: desc }, limit: 5) {
+            created_at
+            looser {
+              first_name
+            }
+            winner {
+              first_name
+            }
+            win_type
+          }
+        }
+      `),
+    { refetchOnWindowFocus: true }
+  )
+
+  const usersGames = usersGamesQuery.data?.games
+
   return (
     <div className="relative rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
       <div className="sm:text-center pb-4">
@@ -102,22 +127,23 @@ const GamesTable: FC<{ games: GameList }> = ({ games }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {games.map((game, i) => (
-                    <tr key={i}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0">
-                        {game.date}
-                      </td>
-                      <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
-                        {game.winner}
-                      </td>
-                      <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
-                        {game.looser}
-                      </td>
-                      <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900">
-                        {game.typeOfWin}
-                      </td>
-                    </tr>
-                  ))}
+                  {usersGames &&
+                    usersGames.map((game, i) => (
+                      <tr key={i}>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0">
+                          {formatDate(game.created_at)}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
+                          {game.winner.first_name}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
+                          {game.looser.first_name}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900">
+                          {game.win_type}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -125,35 +151,7 @@ const GamesTable: FC<{ games: GameList }> = ({ games }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-// //@ts-ignore
-// const CompProps = (props) => {
-//   return (
-//     <>
-//       <div>{props.a}</div>
-//       <div>{props.b}</div>
-//     </>
-//   );
-// };
-
-// //@ts-ignore
-// const CompList = (a: string, b: string) => {
-//   return (
-//     <>
-//       <div>{a}</div>
-//       <div>{b}</div>
-//     </>
-//   );
-// };
-
-// const composantUtilise = () => {
-//   return (
-//     <>
-//       <CompList a="titre" b="contenu" />
-//     </>
-//   );
-// };
-
-export { GamesTable };
+export { GamesTable }

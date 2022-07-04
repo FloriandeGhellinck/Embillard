@@ -1,34 +1,72 @@
-import { FC, Fragment, PropsWithChildren, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { formatISO } from "date-fns";
-import { TypeOfWin } from "../Types/game";
-import ModalTransition from "./modal-transition";
+import { FC, useState } from "react"
+import { format, formatISO, formatRFC3339 } from "date-fns"
+import { TypeOfWin } from "../Types/game"
+import ModalTransition from "./modal-transition"
+import { useMutation, useQueryClient } from "react-query"
+import { hasura } from "../utils/gql"
+import gql from "graphql-tag"
 
 const Modal: FC<{
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-  handleNewGame: (e: any) => void;
-}> = ({ isOpen, handleNewGame, setIsOpen }) => {
-  const people = [
-    "Malo",
-    "Base",
-    "Thib",
-    "Bouchra",
-    "Yann",
-    "Dams",
-    "Gauthier",
-    "Florian",
-  ];
+  isOpen: boolean
+  users: { first_name: string; id: string }[]
+  setIsOpen: (value: boolean) => void
+}> = ({ isOpen, setIsOpen, users }) => {
+  const [looser, setLooser] = useState<null | string>(null)
 
-  const [looser, setLooser] = useState<null | string>(null);
+  const [date, setDate] = useState<null | Date>(new Date())
 
-  const [date, setDate] = useState<null | Date>(new Date());
+  const [winner, setWinner] = useState<null | string>(null)
 
-  const [winner, setWinner] = useState<null | string>(null);
+  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇")
 
-  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇");
+  const queryClient = useQueryClient()
 
-  const isFormValid = looser && date && winner && typeOfWin;
+  const isFormValid = looser && date && winner && typeOfWin
+
+  const newGameMutation = useMutation(
+    "ey",
+    async (e: any) => {
+      e.preventDefault()
+
+      const newGameValues = {
+        date: formatRFC3339(date),
+        winner: winner,
+        looser: looser,
+        typeOfWin: typeOfWin,
+      }
+
+      const response = await hasura(
+        gql`
+          mutation newGame(
+            $date: timestamptz!
+            $looser: uuid!
+            $winner: uuid!
+            $typeOfWin: String!
+          ) {
+            insert_games_one(
+              object: {
+                created_at: $date
+                looser_id: $looser
+                winner_id: $winner
+                win_type: $typeOfWin
+              }
+            ) {
+              id
+            }
+          }
+        `,
+        newGameValues
+      )
+
+      return response
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("games-history")
+        setIsOpen(false)
+      },
+    }
+  )
 
   return (
     <ModalTransition isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -37,13 +75,7 @@ const Modal: FC<{
       </h2>
       <form
         className="flex flex-col gap-4 items-center divide-y w-full"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (isFormValid) {
-            handleNewGame({ looser, date, winner, typeOfWin });
-            setIsOpen(false);
-          }
-        }}
+        onSubmit={newGameMutation.mutate}
       >
         <div className="flex flex-col items-center justify-center gap-4">
           <div className=" ">
@@ -54,17 +86,17 @@ const Modal: FC<{
               required
               className="ml-8 w-36"
               onChange={(e: any) => {
-                setWinner(e.target.value);
+                setWinner(e.target.value)
               }}
             >
               <option value={"noone"} disabled>
                 Pick winner
               </option>
-              {people
-                .filter((person) => !(person === looser))
-                .map((person, i) => (
-                  <option key={i} value={person}>
-                    {person}
+              {users
+                .filter(person => !(person.id === looser))
+                .map(person => (
+                  <option key={person.id} value={person.id}>
+                    {person.first_name}
                   </option>
                 ))}
             </select>
@@ -80,11 +112,11 @@ const Modal: FC<{
               <option value={"noone"} disabled>
                 Pick looser
               </option>
-              {people
-                .filter((person) => !(person === winner))
-                .map((person, y) => (
-                  <option key={y} value={person}>
-                    {person}
+              {users
+                .filter(person => !(person.id === winner))
+                .map(person => (
+                  <option key={person.id} value={person.id}>
+                    {person.first_name}
                   </option>
                 ))}
             </select>
@@ -99,7 +131,7 @@ const Modal: FC<{
               representation: "date",
             })}
             required
-            onChange={(e) => setDate(e.target.valueAsDate)}
+            onChange={e => setDate(e.target.valueAsDate)}
           />
         </div>
         {/* {playerOne && playerTwo && ( */}
@@ -107,7 +139,7 @@ const Modal: FC<{
         {/* )} */}
         <div className="w-full pt-4 flex flex-col justify-between">
           <h2 className="text-center font-medium text-gray-900">
-            How did {winner} win?
+            How did {users.find(user => user.id === winner)?.first_name} win?
           </h2>
 
           <div className=" sm:flex sm:items-center md:gap-2 sm:gap-2 text-center sm:space-y-0 sm:space-x-10 mt-2 mb-3 ">
@@ -118,7 +150,7 @@ const Modal: FC<{
               type="radio"
               className="hidden"
               checked={typeOfWin === "🎱"}
-              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
+              onChange={e => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
@@ -138,7 +170,7 @@ const Modal: FC<{
               type="radio"
               checked={typeOfWin === "🥇"}
               className="hidden focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
-              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
+              onChange={e => setTypeOfWin(e.target.value as TypeOfWin)}
               required
             />
             <label
@@ -163,6 +195,6 @@ const Modal: FC<{
         </button>
       </form>
     </ModalTransition>
-  );
-};
-export default Modal;
+  )
+}
+export default Modal
