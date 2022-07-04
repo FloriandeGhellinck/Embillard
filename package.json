@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "hasura:init": "hasura metadata apply --skip-update-check && hasura migrate apply --database-name default --skip-update-check && hasura metadata reload --skip-update-check && hasura seeds apply --database-name default --skip-update-check"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.5",

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { GamesTable } from "../components/games-table";
-import { format } from "date-fns";
-import { GameList } from "../Types/game";
-import NewGameModal from "../components/newGameModal";
+import React, { useState } from "react"
+import { GamesTable } from "../components/games-table"
+import { format } from "date-fns"
+import { GameList } from "../Types/game"
+import NewGameModal from "../components/newGameModal"
 
 const DEFAULT_GAMES: GameList = [
   {
@@ -17,16 +17,16 @@ const DEFAULT_GAMES: GameList = [
     looser: "Base",
     typeOfWin: "🥇",
   },
-];
+]
 
 const Play = () => {
-  const [games, setGames] = useState<GameList>(DEFAULT_GAMES);
+  const [games, setGames] = useState<GameList>(DEFAULT_GAMES)
 
   const handleNewGame = ({ date, winner, looser, typeOfWin }) => {
-    let newGames: GameList = [];
+    let newGames: GameList = []
 
     for (let i = 0; i < games.length; i++) {
-      newGames.push(games[i]);
+      newGames.push(games[i])
     }
 
     newGames.push({
@@ -34,10 +34,10 @@ const Play = () => {
       winner: winner,
       looser: looser,
       typeOfWin: typeOfWin,
-    });
+    })
 
-    setGames(newGames);
-  };
+    setGames(newGames)
+  }
 
   return (
     <div className="h-screen font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 ">
@@ -52,7 +52,7 @@ const Play = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Play;
+export default Play
