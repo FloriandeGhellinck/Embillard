@@ -57,7 +57,7 @@ const GamesTable: FC = () => {
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl">Looser 🙁</p>
+                      <p className="text-xl">Looser 🙁 </p>
                     </th>
                     <th
                       scope="col"

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { format, formatISO, formatRFC3339 } from "date-fns";
+import { formatISO, formatRFC3339 } from "date-fns";
 import { TypeOfWin } from "../Types/game";
 import ModalTransition from "./modal-transition";
 import { useMutation, useQueryClient } from "react-query";
