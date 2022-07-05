@@ -1,42 +1,37 @@
 table:
   schema: public
   name: games
-object_relationships:
-  - name: looser
+array_relationships:
+  - name: participations
     using:
-      foreign_key_constraint_on: looser_id
-  - name: winner
-    using:
-      foreign_key_constraint_on: winner_id
+      foreign_key_constraint_on:
+        column: game_id
+        table:
+          schema: public
+          name: participations
 insert_permissions:
   - role: anonymous
     permission:
       check: {}
       columns:
-        - created_at
+        - date
         - id
-        - looser_id
-        - winner_id
         - win_type
       backend_only: false
 select_permissions:
   - role: anonymous
     permission:
       columns:
-        - created_at
+        - date
         - id
-        - looser_id
-        - winner_id
         - win_type
       filter: {}
 update_permissions:
   - role: anonymous
     permission:
       columns:
-        - created_at
+        - date
         - id
-        - looser_id
-        - winner_id
         - win_type
       filter: {}
       check: {}

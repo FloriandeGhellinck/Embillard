@@ -1,40 +1,39 @@
 table:
   schema: public
-  name: users
-array_relationships:
-  - name: participations
+  name: participations
+object_relationships:
+  - name: game
     using:
-      foreign_key_constraint_on:
-        column: user_id
-        table:
-          schema: public
-          name: participations
+      foreign_key_constraint_on: game_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
 insert_permissions:
   - role: anonymous
     permission:
       check: {}
       columns:
-        - first_name
-        - id
-        - last_name
+        - game_id
+        - participation_type
+        - user_id
       backend_only: false
 select_permissions:
   - role: anonymous
     permission:
       columns:
-        - first_name
-        - id
-        - last_name
+        - game_id
+        - participation_type
+        - user_id
       filter: {}
 update_permissions:
   - role: anonymous
     permission:
       columns:
-        - first_name
-        - id
-        - last_name
+        - game_id
+        - participation_type
+        - user_id
       filter: {}
-      check: {}
+      check: null
 delete_permissions:
   - role: anonymous
     permission:

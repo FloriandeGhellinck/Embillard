@@ -3,18 +3,15 @@ import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
 
 const RankingTable = ({ result }) => {
-  const pointsGamesQuery = useQuery(
-    "points",
-    () =>
-      hasura(gql`
-        query point-games {
-          games(order_by: {}) {
-            id
-            winner_id
-          }
+  const pointsGamesQuery = useQuery("points", () =>
+    hasura(gql`
+      query PointGames {
+        games(order_by: {}) {
+          id
+          winner_id
         }
-      `),
-    { refetchOnWindowFocus: true }
+      }
+    `)
   );
 
   const pointGames = pointsGamesQuery.data?.games;
@@ -29,17 +26,17 @@ const RankingTable = ({ result }) => {
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-50 ">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 sm:text-center"
                     >
                       Ranking
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 "
                     >
                       Name
                     </th>
@@ -65,14 +62,14 @@ const RankingTable = ({ result }) => {
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 sm:text-left"
                     >
                       Games Lost 🥇
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 "
                     >
                       Games Lost 🎱
                     </th>
