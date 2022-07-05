@@ -5,6 +5,7 @@ import { formatDate } from "../utils/date";
 import { hasura } from "../utils/gql";
 
 const GamesTable: FC = () => {
+  // Comment faire pour props ceci vers un autre composant?
   const usersGamesQuery = useQuery(
     "games-history",
     () =>

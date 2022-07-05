@@ -1,4 +1,26 @@
+import { useQuery } from "react-query";
+import { hasura } from "../utils/gql";
+import gql from "graphql-tag";
+
 const RankingTable = ({ result }) => {
+  const pointsGamesQuery = useQuery(
+    "points",
+    () =>
+      hasura(gql`
+        query point-games {
+          games(order_by: {}) {
+            id
+            winner_id
+          }
+        }
+      `),
+    { refetchOnWindowFocus: true }
+  );
+
+  const pointGames = pointsGamesQuery.data?.games;
+
+  console.log(pointGames);
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 flex justify-center">
       <div className="sm:flex sm:items-center"></div>

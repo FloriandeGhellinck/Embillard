@@ -40,11 +40,13 @@ export default function Navbar({ children }) {
                 </div>
                 <div className="flex-1 flex sm:items-stretch sm:justify-start">
                   <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src="../logo-name.png"
-                      alt="Workflow"
-                    />
+                    <a href="./play-game">
+                      <img
+                        className="hidden lg:block h-8 w-auto"
+                        src="../logo-name.png"
+                        alt="Workflow"
+                      />
+                    </a>
                   </div>
                   <div className="hidden sm:block sm:ml-6 font-poppins">
                     <div className="flex space-x-4">
