@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 
 const Modal: FC<{
   isOpen: boolean;
-  users: { first_name: string; id: string }[];
+  users: { first_name: string; last_name: string; id: string }[];
   setIsOpen: (value: boolean) => void;
 }> = ({ isOpen, setIsOpen, users }) => {
   const [looser, setLooser] = useState<null | string>(null);
@@ -76,39 +76,6 @@ const Modal: FC<{
     }
   );
 
-  //     const response = await hasura(
-  //       gql`
-  //         mutation newGame(
-  //           $date: timestamptz!
-  //           $looser: uuid!
-  //           $winner: uuid!
-  //           $typeOfWin: String!
-  //         ) {
-  //           insert_games_one(
-  //             object: {
-  //               created_at: $date
-  //               looser_id: $looser
-  //               winner_id: $winner
-  //               win_type: $typeOfWin
-  //             }
-  //           ) {
-  //             id
-  //           }
-  //         }
-  //       `,
-  //       newGameValues
-  //     );
-
-  //     return response;
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries("games-history");
-  //       setIsOpen(false);
-  //     },
-  //   }
-  // );
-
   return (
     <ModalTransition isOpen={isOpen} setIsOpen={setIsOpen}>
       <h2 className="text-indigo-600 font-semibold tracking-wide uppercase mb-4">
@@ -137,7 +104,7 @@ const Modal: FC<{
                 .filter((person) => !(person.id === looser))
                 .map((person) => (
                   <option key={person.id} value={person.id}>
-                    {person.first_name}
+                    {person.first_name}. {person.last_name.slice(0, 1)}
                   </option>
                 ))}
             </select>
@@ -157,7 +124,7 @@ const Modal: FC<{
                 .filter((person) => !(person.id === winner))
                 .map((person) => (
                   <option key={person.id} value={person.id}>
-                    {person.first_name}
+                    {person.first_name}. {person.last_name.slice(0, 1)}
                   </option>
                 ))}
             </select>

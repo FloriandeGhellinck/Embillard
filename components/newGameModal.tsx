@@ -10,28 +10,23 @@ const NewGameModal: FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleToggleModal = () => {
-    usersQuery.refetch();
+    getUsersQuery.refetch();
     setShowModal(!showModal);
   };
 
-  const usersQuery = useQuery(
-    "users",
-    () =>
-      hasura(
-        gql`
-          query Users {
-            users {
-              first_name
-              last_name
-              id
-            }
-          }
-        `
-      ),
-    { enabled: false }
+  const getUsersQuery = useQuery("users", () =>
+    hasura(gql`
+      query GetUsers {
+        users {
+          first_name
+          last_name
+          id
+        }
+      }
+    `)
   );
 
-  const users = usersQuery.data?.users;
+  const users = getUsersQuery.data?.users;
 
   return (
     <>
@@ -40,11 +35,11 @@ const NewGameModal: FC = () => {
       )}
       <button
         type="button"
-        disabled={usersQuery.isLoading}
+        disabled={getUsersQuery.isLoading}
         className=" inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
         onClick={handleToggleModal}
       >
-        {usersQuery.isLoading ? "Loading" : "Enter a score"}
+        {getUsersQuery.isLoading ? "Loading" : "Enter a score"}
       </button>
     </>
   );
