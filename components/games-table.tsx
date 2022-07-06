@@ -76,12 +76,10 @@ const GamesTable: FC = () => {
                     const participations = game.participations;
 
                     const winner = participations.find(
-                      (participation) =>
-                        participation.participation_type === "winner"
+                      (e) => e.participation_type === "winner"
                     ).user;
                     const looser = participations.find(
-                      (participation) =>
-                        participation.participation_type === "looser"
+                      (e) => e.participation_type === "looser"
                     ).user;
                     return (
                       <tr key={game.id}>

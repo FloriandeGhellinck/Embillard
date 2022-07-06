@@ -2,21 +2,30 @@ import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
 
-const RankingTable = ({ result }) => {
-  // const pointsGamesQuery = useQuery("points", () =>
-  //   hasura(gql`
-  //     query PointGames {
-  //       games(order_by: {}) {
-  //         id
-  //         winner_id
-  //       }
-  //     }
-  //   `)
-  // );
+const RankingTable = () => {
+  const gamesFromDatabase = useQuery("games-history-for-each-user", () =>
+    hasura(
+      gql`
+        query GamesFromDatabase {
+          users {
+            first_name
+            last_name
+            id
+            participations(limit: 10, order_by: { game: { date: desc } }) {
+              participation_type
+              game {
+                win_type
+              }
+            }
+          }
+        }
+      `
+    )
+  );
 
-  // const pointGames = pointsGamesQuery.data?.games;
+  const dataAboutGames = gamesFromDatabase.data?.users;
 
-  // console.log(pointGames);
+  // // console.log(dataAboutGames);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 flex justify-center">
@@ -76,31 +85,75 @@ const RankingTable = ({ result }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {result.map((person, i) => (
-                    <tr key={i}>
-                      <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
-                        {person.ranking}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                        {person.points}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                        {person.gameswonnormal}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                        {person.gameswoneight}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                        {person.gameslostnormal}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                        {person.gameslosteight}
-                      </td>
-                    </tr>
-                  ))}
+                  {dataAboutGames?.map((person, i) => {
+                    const participations = person.participations;
+
+                    const winGamesByMedal = participations.filter(
+                      (participation) =>
+                        participation.participation_type === "winner" &&
+                        participation.game.win_type === "🥇"
+                    );
+                    const getNumberOfWinGamesByMedal = winGamesByMedal.length;
+
+                    const winGamesByBlackBall = participations.filter(
+                      (participation) =>
+                        participation.game.win_type === "🎱" &&
+                        participation.participation_type === "winner"
+                    );
+                    const getNumberOfWinByBlackBall =
+                      winGamesByBlackBall.length;
+
+                    const lostGamesByMedal = participations.filter(
+                      (participations) =>
+                        participations.participation_type === "looser" &&
+                        participations.game.win_type === "🥇"
+                    );
+
+                    const getNumberOfLostGamesByMedal = lostGamesByMedal.length;
+
+                    const lostGamesByBlackBall = participations.filter(
+                      (participations) =>
+                        participations.participation_type === "looser" &&
+                        participations.game.win_type === "🎱"
+                    );
+
+                    const getNumberOfLostGamesByBlackBall =
+                      lostGamesByBlackBall.length;
+
+                    const points =
+                      getNumberOfWinGamesByMedal * 3 +
+                      getNumberOfWinByBlackBall -
+                      getNumberOfLostGamesByBlackBall;
+
+                    return (
+                      <tr key={i}>
+                        <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
+                          #{i + 1}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          <span className="font-bold">
+                            {person.first_name.slice(0, 1)}.{" "}
+                          </span>
+                          {person.last_name}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
+                          {points}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
+                          {getNumberOfWinGamesByMedal}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
+                          {getNumberOfWinByBlackBall}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
+                          {getNumberOfLostGamesByMedal}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
+                          {getNumberOfLostGamesByBlackBall}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
