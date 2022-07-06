@@ -17,11 +17,11 @@ const Modal: FC<{
 
   const [winner, setWinner] = useState<null | string>(null);
 
-  const [typeOfWin, setTypeOfWin] = useState<TypeOfWin>("🥇");
+  const [winType, setWinType] = useState<TypeOfWin>("🥇");
 
   const queryClient = useQueryClient();
 
-  const isFormValid = looser && date && winner && typeOfWin;
+  const isFormValid = looser && date && winner && winType;
 
   const newGameMutation = useMutation(
     "ey",
@@ -30,25 +30,33 @@ const Modal: FC<{
 
       const newGameValues = {
         date: formatRFC3339(date),
-        winner: winner,
-        looser: looser,
-        typeOfWin: typeOfWin,
+        win_type: winType,
+        participations: {
+          data: [
+            {
+              participation_type: "winner",
+              user_id: winner,
+            },
+            {
+              participation_type: "looser",
+              user_id: looser,
+            },
+          ],
+        },
       };
 
       const response = await hasura(
         gql`
-          mutation newGame(
+          mutation NewGame(
+            $win_type: String!
             $date: timestamptz!
-            $looser: uuid!
-            $winner: uuid!
-            $typeOfWin: String!
+            $participations: participations_arr_rel_insert_input!
           ) {
             insert_games_one(
               object: {
-                created_at: $date
-                looser_id: $looser
-                winner_id: $winner
-                win_type: $typeOfWin
+                date: $date
+                win_type: $win_type
+                participations: $participations
               }
             ) {
               id
@@ -67,6 +75,39 @@ const Modal: FC<{
       },
     }
   );
+
+  //     const response = await hasura(
+  //       gql`
+  //         mutation newGame(
+  //           $date: timestamptz!
+  //           $looser: uuid!
+  //           $winner: uuid!
+  //           $typeOfWin: String!
+  //         ) {
+  //           insert_games_one(
+  //             object: {
+  //               created_at: $date
+  //               looser_id: $looser
+  //               winner_id: $winner
+  //               win_type: $typeOfWin
+  //             }
+  //           ) {
+  //             id
+  //           }
+  //         }
+  //       `,
+  //       newGameValues
+  //     );
+
+  //     return response;
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries("games-history");
+  //       setIsOpen(false);
+  //     },
+  //   }
+  // );
 
   return (
     <ModalTransition isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -146,14 +187,14 @@ const Modal: FC<{
               value="🎱"
               type="radio"
               className="hidden"
-              checked={typeOfWin === "🎱"}
-              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
+              checked={winType === "🎱"}
+              onChange={(e) => setWinType(e.target.value as TypeOfWin)}
               required
             />
             <label
               htmlFor="eight_ball"
               className={`p-2 w-auto border border-embie-blue-light-500 rounded ${
-                typeOfWin === "🎱"
+                winType === "🎱"
                   ? "bg-embie-blue-light-500 text-white"
                   : "text-embie-blue-light-500"
               }`}
@@ -165,14 +206,14 @@ const Modal: FC<{
               name="type_of_win"
               value="🥇"
               type="radio"
-              checked={typeOfWin === "🥇"}
+              checked={winType === "🥇"}
               className="hidden focus:ring-embie-blue-light-600 h-4 w-4 text-embie-blue-light-600 border-embie-blue-light-600"
-              onChange={(e) => setTypeOfWin(e.target.value as TypeOfWin)}
+              onChange={(e) => setWinType(e.target.value as TypeOfWin)}
               required
             />
             <label
               className={`w-auto p-2 border border-embie-blue-light-500 rounded ${
-                typeOfWin === "🥇"
+                winType === "🥇"
                   ? "bg-embie-blue-light-500 text-white"
                   : "text-embie-blue-light-500"
               }`}

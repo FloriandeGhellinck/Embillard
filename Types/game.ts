@@ -4,7 +4,7 @@ export type Game = {
   date: string;
   winner: string;
   looser: string;
-  typeOfWin: TypeOfWin;
+  winType: TypeOfWin;
 };
 
 export type GameList = Game[];

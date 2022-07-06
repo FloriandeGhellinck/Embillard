@@ -22,6 +22,7 @@ const NewGameModal: FC = () => {
           query Users {
             users {
               first_name
+              last_name
               id
             }
           }

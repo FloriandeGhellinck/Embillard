@@ -3,20 +3,20 @@ import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
 
 const RankingTable = ({ result }) => {
-  const pointsGamesQuery = useQuery("points", () =>
-    hasura(gql`
-      query PointGames {
-        games(order_by: {}) {
-          id
-          winner_id
-        }
-      }
-    `)
-  );
+  // const pointsGamesQuery = useQuery("points", () =>
+  //   hasura(gql`
+  //     query PointGames {
+  //       games(order_by: {}) {
+  //         id
+  //         winner_id
+  //       }
+  //     }
+  //   `)
+  // );
 
-  const pointGames = pointsGamesQuery.data?.games;
+  // const pointGames = pointsGamesQuery.data?.games;
 
-  console.log(pointGames);
+  // console.log(pointGames);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 flex justify-center">

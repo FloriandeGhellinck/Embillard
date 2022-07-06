@@ -21,6 +21,7 @@ const GamesTable: FC = () => {
                 last_name
               }
             }
+            id
           }
         }
       `,
