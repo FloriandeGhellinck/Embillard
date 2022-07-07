@@ -5,7 +5,7 @@ import NewGameModal from "../components/newGameModal";
 const Play = () => {
   return (
     <div className="h-full font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 ">
-      <div className="flex flex-col items-center justify-center pt-3 ">
+      <div className="flex flex-col items-center justify-center pt-3 sm:pt-8">
         <NewGameModal />
         <div className="justify-center w-11/12 border-rounded-full mt-4">
           <div className="relative sm:py-16">

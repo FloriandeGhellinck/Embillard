@@ -36,7 +36,7 @@ const NewGameModal: FC = () => {
       <button
         type="button"
         disabled={getUsersQuery.isLoading}
-        className=" inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
+        className="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-embie-blue-light-600 hover:bg-embie-blue-dark-300"
         onClick={handleToggleModal}
       >
         {getUsersQuery.isLoading ? "Loading" : "Enter a score"}
