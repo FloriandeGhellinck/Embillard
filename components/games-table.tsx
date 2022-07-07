@@ -102,6 +102,7 @@ const GamesTable: FC = () => {
                           {game.win_type}
                         </td>
                       </tr>
+                      test
                     );
                   })}
                 </tbody>

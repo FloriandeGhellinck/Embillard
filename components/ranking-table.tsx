@@ -25,6 +25,61 @@ const RankingTable = () => {
 
   const dataAboutGames = gamesFromDatabase.data?.users;
 
+  const getPointsFromUser = (person) => {
+    console.log({ person });
+
+    const participations = person.participations;
+
+    const winGamesByMedal = participations.filter(
+      (participation) =>
+        participation.participation_type === "winner" &&
+        participation.game.win_type === "🥇"
+    );
+    const getNumberOfWinGamesByMedal = winGamesByMedal.length;
+
+    const winGamesByBlackBall = participations.filter(
+      (participation) =>
+        participation.game.win_type === "🎱" &&
+        participation.participation_type === "winner"
+    );
+    const getNumberOfWinByBlackBall = winGamesByBlackBall.length;
+
+    const lostGamesByMedal = participations.filter(
+      (participations) =>
+        participations.participation_type === "looser" &&
+        participations.game.win_type === "🥇"
+    );
+
+    const getNumberOfLostGamesByMedal = lostGamesByMedal.length;
+
+    const lostGamesByBlackBall = participations.filter(
+      (participations) =>
+        participations.participation_type === "looser" &&
+        participations.game.win_type === "🎱"
+    );
+
+    const getNumberOfLostGamesByBlackBall = lostGamesByBlackBall.length;
+
+    const points =
+      getNumberOfWinGamesByMedal * 3 +
+      getNumberOfWinByBlackBall -
+      getNumberOfLostGamesByBlackBall;
+
+    return points;
+  };
+
+  const sortedDataAboutGames = dataAboutGames?.sort((personA, personB) => {
+    const pointsA = getPointsFromUser(personA);
+    const pointsB = getPointsFromUser(personB);
+    console.log({ pointsA, pointsB });
+
+    return pointsB - pointsA;
+  });
+
+  // NOW : 1. CALC + SORT 2. CALC + RENDER
+
+  // TODO : 1. CALC 2. SORT 3. RENDER
+
   // // console.log(dataAboutGames);
 
   return (
@@ -85,7 +140,7 @@ const RankingTable = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {dataAboutGames?.map((person, i) => {
+                  {sortedDataAboutGames?.map((person, i) => {
                     const participations = person.participations;
 
                     const winGamesByMedal = participations.filter(
