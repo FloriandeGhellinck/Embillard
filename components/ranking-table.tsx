@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
+import { TypeOfWin } from "../Types/game";
 
 const RankingTable = () => {
   const gamesFromDatabase = useQuery("games-history-for-each-user", () =>
@@ -23,11 +24,20 @@ const RankingTable = () => {
     )
   );
 
-  const dataAboutGames = gamesFromDatabase.data?.users;
+  //const dataAboutGames = gamesFromDatabase.data?.users
+  const dataAboutGames: {
+    first_name: string;
+    last_name: string;
+    id: string;
+    participations: {
+      participation_type: "winner" | "looser";
+      game: {
+        win_type: TypeOfWin;
+      };
+    }[];
+  }[] = gamesFromDatabase.isLoading ? [] : gamesFromDatabase.data.users;
 
   const getPointsFromUser = (person) => {
-    console.log({ person });
-
     const participations = person.participations;
 
     const winGamesByMedal = participations.filter(
@@ -65,22 +75,25 @@ const RankingTable = () => {
       getNumberOfWinByBlackBall -
       getNumberOfLostGamesByBlackBall;
 
-    return points;
+    return {
+      points,
+      getNumberOfLostGamesByBlackBall,
+      getNumberOfLostGamesByMedal,
+      getNumberOfWinByBlackBall,
+      getNumberOfWinGamesByMedal,
+    };
   };
 
-  const sortedDataAboutGames = dataAboutGames?.sort((personA, personB) => {
-    const pointsA = getPointsFromUser(personA);
-    const pointsB = getPointsFromUser(personB);
-    console.log({ pointsA, pointsB });
+  let dataComputed = dataAboutGames.map((person) => {
+    return { ...person, resume: getPointsFromUser(person) };
+  });
+
+  const dataSortedByPoints = dataComputed.sort((personA, personB) => {
+    const pointsA = personA.resume.points;
+    const pointsB = personB.resume.points;
 
     return pointsB - pointsA;
   });
-
-  // NOW : 1. CALC + SORT 2. CALC + RENDER
-
-  // TODO : 1. CALC 2. SORT 3. RENDER
-
-  // // console.log(dataAboutGames);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 flex justify-center">
@@ -140,46 +153,7 @@ const RankingTable = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {sortedDataAboutGames?.map((person, i) => {
-                    const participations = person.participations;
-
-                    const winGamesByMedal = participations.filter(
-                      (participation) =>
-                        participation.participation_type === "winner" &&
-                        participation.game.win_type === "🥇"
-                    );
-                    const getNumberOfWinGamesByMedal = winGamesByMedal.length;
-
-                    const winGamesByBlackBall = participations.filter(
-                      (participation) =>
-                        participation.game.win_type === "🎱" &&
-                        participation.participation_type === "winner"
-                    );
-                    const getNumberOfWinByBlackBall =
-                      winGamesByBlackBall.length;
-
-                    const lostGamesByMedal = participations.filter(
-                      (participations) =>
-                        participations.participation_type === "looser" &&
-                        participations.game.win_type === "🥇"
-                    );
-
-                    const getNumberOfLostGamesByMedal = lostGamesByMedal.length;
-
-                    const lostGamesByBlackBall = participations.filter(
-                      (participations) =>
-                        participations.participation_type === "looser" &&
-                        participations.game.win_type === "🎱"
-                    );
-
-                    const getNumberOfLostGamesByBlackBall =
-                      lostGamesByBlackBall.length;
-
-                    const points =
-                      getNumberOfWinGamesByMedal * 3 +
-                      getNumberOfWinByBlackBall -
-                      getNumberOfLostGamesByBlackBall;
-
+                  {dataSortedByPoints.map((person, i) => {
                     return (
                       <tr key={i}>
                         <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
@@ -192,19 +166,19 @@ const RankingTable = () => {
                           {person.last_name}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                          {points}
+                          {person.resume.points}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                          {getNumberOfWinGamesByMedal}
+                          {person.resume.getNumberOfWinGamesByMedal}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                          {getNumberOfWinByBlackBall}
+                          {person.resume.getNumberOfWinByBlackBall}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                          {getNumberOfLostGamesByMedal}
+                          {person.resume.getNumberOfLostGamesByMedal}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
-                          {getNumberOfLostGamesByBlackBall}
+                          {person.resume.getNumberOfLostGamesByBlackBall}
                         </td>
                       </tr>
                     );
