@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import { FC, useState } from "react";
 import { useQuery } from "react-query";
-import { formatDate } from "../utils/date";
+import { formatDate, formatDateWithoutYears } from "../utils/date";
 import { hasura } from "../utils/gql";
 
 const GamesTable: FC = () => {
@@ -19,6 +19,7 @@ const GamesTable: FC = () => {
               user {
                 first_name
                 last_name
+                user_name
               }
             }
             id
@@ -49,37 +50,66 @@ const GamesTable: FC = () => {
                       scope="col"
                       className="py-3.5 w-4/12 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0"
                     >
-                      <p className="text-xl text-center sm:text-left">
+                      <p className="text-xl sm:text-left hidden sm:contents ">
                         Date 🗓{" "}
                       </p>
+                      <p className="text-xl text-left sm:hidden ">🗓 </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl text-center sm:text-left">
-                        Winner 🤩{" "}
+                      <p className="text-xl text-left sm:text-left">
+                        <span className="hidden sm:contents"> Winner </span>🤩{" "}
                       </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl text-center sm:text-left">
-                        Looser 🙁{" "}
+                      <p className="text-xl text-left sm:text-left">
+                        <span className="hidden sm:contents">Looser </span>🙁{" "}
                       </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl text-center sm:text-left sm:w-20">
-                        Type 🏆{" "}
+                      <p className="text-xl text-left sm:text-left sm:w-20">
+                        <span className="hidden sm:contents">Type </span>🏆{" "}
                       </p>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-200 sm:hidden">
+                  {usersGames?.map((game) => {
+                    const participations = game.participations;
+
+                    const winner = participations.find(
+                      (e) => e.participation_type === "winner"
+                    ).user;
+                    const looser = participations.find(
+                      (e) => e.participation_type === "looser"
+                    ).user;
+                    return (
+                      <tr key={game.id}>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0">
+                          {formatDateWithoutYears(game.date)}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
+                          {winner.user_name}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-sm text-gray-900">
+                          {looser.user_name}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900 text-center sm:text-left">
+                          {game.win_type}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tbody className="divide-y divide-gray-200 hidden sm:contents">
                   {usersGames?.map((game) => {
                     const participations = game.participations;
 

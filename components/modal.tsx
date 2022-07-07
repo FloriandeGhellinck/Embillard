@@ -142,12 +142,12 @@ const Modal: FC<{
             onChange={(e) => setDate(e.target.valueAsDate)}
           />
         </div>
-        <div className="w-full pt-4 flex flex-col justify-between">
+        <div className="w-full gap-2 pt-4 flex flex-col justify-between">
           <h2 className="text-center font-medium text-gray-900">
             How did {users.find((user) => user.id === winner)?.first_name} win?
           </h2>
 
-          <div className=" sm:flex sm:items-center md:gap-2 sm:gap-2 text-center sm:space-y-0 sm:space-x-10 mt-2 mb-3 ">
+          <div className="gsm:flex space-x-2 sm:items-center gap-2 text-center  mt-2 mb-3 ">
             <input
               id="eight_ball"
               name="type_of_win"

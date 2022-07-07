@@ -17,6 +17,7 @@ insert_permissions:
         - first_name
         - id
         - last_name
+        - user_name
       backend_only: false
 select_permissions:
   - role: anonymous
@@ -25,6 +26,7 @@ select_permissions:
         - first_name
         - id
         - last_name
+        - user_name
       filter: {}
 update_permissions:
   - role: anonymous
@@ -33,6 +35,7 @@ update_permissions:
         - first_name
         - id
         - last_name
+        - user_name
       filter: {}
       check: {}
 delete_permissions:
