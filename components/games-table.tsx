@@ -33,8 +33,8 @@ const GamesTable: FC = () => {
 
   return (
     <div className="relative rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
-      <div className="sm:text-center pb-4">
-        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl underline underline-offset-8 text-gray-800">
+      <div className="sm:text-center ">
+        <h2 className="text-3xl text-center  font-extrabold tracking-tight sm:text-4xl underline underline-offset-8 text-gray-800">
           They had fun together
         </h2>
       </div>
@@ -49,25 +49,33 @@ const GamesTable: FC = () => {
                       scope="col"
                       className="py-3.5 w-4/12 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0"
                     >
-                      <p className="text-xl">Date 🗓 </p>
+                      <p className="text-xl text-center sm:text-left">
+                        Date 🗓{" "}
+                      </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl">Winner 🤩 </p>
+                      <p className="text-xl text-center sm:text-left">
+                        Winner 🤩{" "}
+                      </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl">Looser 🙁 </p>
+                      <p className="text-xl text-center sm:text-left">
+                        Looser 🙁{" "}
+                      </p>
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
                     >
-                      <p className="text-xl"> 🏆 </p>
+                      <p className="text-xl text-center sm:text-left sm:w-20">
+                        Type 🏆{" "}
+                      </p>
                     </th>
                   </tr>
                 </thead>
@@ -98,7 +106,7 @@ const GamesTable: FC = () => {
                           </span>{" "}
                           {looser.last_name}
                         </td>
-                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900">
+                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900 text-center sm:text-left">
                           {game.win_type}
                         </td>
                       </tr>
