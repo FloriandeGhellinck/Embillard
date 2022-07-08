@@ -101,9 +101,9 @@ const RankingTable = () => {
     <div className="relative px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll">
       {/* <div className="sm:flex sm:items-center"></div> */}
       <div className="mt-8 flex flex-col">
-        <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 pl-1 pr-1">
-          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg inline-block">
+        <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 ml-1 pr-1">
+          <div className=" min-w-full py-2 align-middle md:px-6 lg:px-8 ">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg ">
               <table className="min-w-full divide-y divide-gray-300 ">
                 <thead className="bg-gray-50 ">
                   <tr>
@@ -111,7 +111,7 @@ const RankingTable = () => {
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 sm:text-center"
                     >
-                      <span className="hidden sm:contents ">Ranking</span>
+                      <span className="hidden sm:contents ">Ranking</span>{" "}
                     </th>
                     <th
                       scope="col"
@@ -165,6 +165,7 @@ const RankingTable = () => {
                     </th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {dataSortedByPoints.map((person, i) => {
                     return (
@@ -172,17 +173,19 @@ const RankingTable = () => {
                         <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
                           #{i + 1}
                         </td>
-
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:contents ">
-                          <span className="font-bold">
-                            {person.first_name.slice(0, 1)}.{" "}
-                          </span>
-                          {person.last_name}
-                        </td>
-
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:hidden">
-                          {person.user_name}
-                        </td>
+                        <div className="hidden sm:contents">
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
+                            <span className="font-bold">
+                              {person.first_name.slice(0, 1)}.{" "}
+                            </span>
+                            {person.last_name}
+                          </td>
+                        </div>
+                        <div className="sm:hidden">
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
+                            {person.user_name}
+                          </td>
+                        </div>
 
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
                           {person.resume.points}

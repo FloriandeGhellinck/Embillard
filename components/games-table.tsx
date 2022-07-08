@@ -35,7 +35,7 @@ const GamesTable: FC = () => {
   return (
     <div className="rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
       <div className="sm:text-center ">
-        <h2 className="text-3xl text-center font-extrabold tracking-tight sm:text-4xl sm:underline underline-offset-8 text-gray-400">
+        <h2 className="text-3xl text-center font-extrabold tracking-tight sm:text-4xl sm:underline underline-offset-8 text-gray-400 sm:text-gray-600">
           They had fun together
         </h2>
       </div>
@@ -48,7 +48,7 @@ const GamesTable: FC = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 w-4/12 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0"
+                      className="py-3.5 w-4/12 pl-4 pr-3 text-left text-sm font-semibold text-gray-600 sm:pl-6 md:pl-0"
                     >
                       <p className="text-xl sm:text-left hidden sm:contents ">
                         Date 🗓{" "}
@@ -57,7 +57,7 @@ const GamesTable: FC = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-600"
                     >
                       <p className="text-xl text-left sm:text-left">
                         <span className="hidden sm:contents"> Winner </span>🤩{" "}
@@ -65,7 +65,7 @@ const GamesTable: FC = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-600"
                     >
                       <p className="text-xl text-left sm:text-left">
                         <span className="hidden sm:contents">Looser </span>🙁{" "}
@@ -73,7 +73,7 @@ const GamesTable: FC = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 w-4/12 px-3 text-left text-sm font-semibold text-gray-600"
                     >
                       <p className="text-xl text-left sm:text-left sm:w-20">
                         <span className="hidden sm:contents">Type </span>🏆{" "}
