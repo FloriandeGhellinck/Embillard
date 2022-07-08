@@ -2,13 +2,13 @@ import React from "react";
 
 const Rules = () => {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll">
+    <div className="px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll ">
       <div className="sm:flex sm:items-center"></div>
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 pl-1 pr-1">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
             <div className="flex justify-center overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
-              <table className=" divide-y divide-gray-300">
+              <table className=" divide-y divide-gray-300 shadow-inner">
                 <thead className="bg-gray-50">
                   <tr>
                     <th

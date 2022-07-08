@@ -98,10 +98,10 @@ const RankingTable = () => {
   });
 
   return (
-    <div className="relative px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll">
+    <div className="relative px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll ">
       {/* <div className="sm:flex sm:items-center"></div> */}
       <div className="mt-8 flex flex-col">
-        <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 ml-1 pr-1">
+        <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 ">
           <div className=" min-w-full py-2 align-middle md:px-6 lg:px-8 ">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg ">
               <table className="min-w-full divide-y divide-gray-300 ">
@@ -109,19 +109,19 @@ const RankingTable = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 sm:text-center"
+                      className="py-3.5  pl-1  text-left text-sm font-semibold text-gray-900 sm:pl-6 sm:text-center"
                     >
                       <span className="hidden sm:contents ">Ranking</span>{" "}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
+                      className=" px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
                     >
                       Name
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
+                      className=" px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
                     >
                       Points
                     </th>
@@ -134,7 +134,7 @@ const RankingTable = () => {
                       <span className="hidden sm:contents">
                         Games Won{" "}
                       </span>{" "}
-                      <span className="sm:hidden">Win</span>🥇
+                      <span className="sm:hidden">Win </span>🥇
                     </th>
 
                     <th
@@ -170,7 +170,7 @@ const RankingTable = () => {
                   {dataSortedByPoints.map((person, i) => {
                     return (
                       <tr key={i}>
-                        <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
+                        <td className="whitespace-nowrap font-bold py-4  pl-1  sm:pr-3 text-sm text-gray-900 sm:pl-6">
                           #{i + 1}
                         </td>
                         <div className="hidden sm:contents">

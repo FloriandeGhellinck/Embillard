@@ -136,7 +136,7 @@ const GamesTable: FC = () => {
                           </span>{" "}
                           {looser.last_name}
                         </td>
-                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900 text-center sm:text-left">
+                        <td className="whitespace-nowrap py-4 px-3 text-base text-gray-900 text-center ">
                           {game.win_type}
                         </td>
                       </tr>

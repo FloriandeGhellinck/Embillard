@@ -4,7 +4,7 @@ import RankingTable from "../components/ranking-table";
 
 const Ranking = () => {
   return (
-    <div className="h-screen font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 ">
+    <div className="h-screen font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 pl-1">
       <Rules />
       <RankingTable />
     </div>
