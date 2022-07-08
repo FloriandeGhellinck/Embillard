@@ -33,9 +33,9 @@ const GamesTable: FC = () => {
   const usersGames = usersGamesQuery.data?.games;
 
   return (
-    <div className="relative rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
+    <div className="rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
       <div className="sm:text-center ">
-        <h2 className="text-3xl text-center  font-extrabold tracking-tight sm:text-4xl underline underline-offset-8 text-gray-800">
+        <h2 className="text-3xl text-center font-extrabold tracking-tight sm:text-4xl sm:underline underline-offset-8 text-gray-400">
           They had fun together
         </h2>
       </div>

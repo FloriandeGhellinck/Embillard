@@ -11,6 +11,7 @@ const RankingTable = () => {
           users {
             first_name
             last_name
+            user_name
             id
             participations(limit: 10, order_by: { game: { date: desc } }) {
               participation_type
@@ -28,6 +29,7 @@ const RankingTable = () => {
   const dataAboutGames: {
     first_name: string;
     last_name: string;
+    user_name: string;
     id: string;
     participations: {
       participation_type: "winner" | "looser";
@@ -96,59 +98,70 @@ const RankingTable = () => {
   });
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 flex justify-center">
-      <div className="sm:flex sm:items-center"></div>
+    <div className="relative px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll">
+      {/* <div className="sm:flex sm:items-center"></div> */}
       <div className="mt-8 flex flex-col">
-        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
+        <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 pl-1 pr-1">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg inline-block">
+              <table className="min-w-full divide-y divide-gray-300 ">
                 <thead className="bg-gray-50 ">
                   <tr>
                     <th
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 sm:text-center"
                     >
-                      Ranking
+                      <span className="hidden sm:contents ">Ranking</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 "
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
                     >
                       Name
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
                     >
                       Points
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
-                      Games Won 🥇
+                      {" "}
+                      <span className="hidden sm:contents">
+                        Games Won{" "}
+                      </span>{" "}
+                      <span className="sm:hidden">Win</span>🥇
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                     >
-                      Games Won 🎱
+                      {" "}
+                      <span className="hidden sm:contents">
+                        Games Won{" "}
+                      </span>{" "}
+                      <span className="sm:hidden">Win</span> 🎱
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 sm:text-left"
                     >
-                      Games Lost 🥇
+                      {" "}
+                      <span className="hidden sm:contents"> Games Lost</span>
+                      <span className="sm:hidden"> Lost</span> 🥇
                     </th>
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 "
+                      className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
                     >
-                      Games Lost 🎱
+                      <span className="hidden sm:contents"> Games Lost</span>
+                      <span className="sm:hidden"> Lost</span> 🎱
                     </th>
                   </tr>
                 </thead>
@@ -159,12 +172,18 @@ const RankingTable = () => {
                         <td className="whitespace-nowrap font-bold py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
                           #{i + 1}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:contents ">
                           <span className="font-bold">
                             {person.first_name.slice(0, 1)}.{" "}
                           </span>
                           {person.last_name}
                         </td>
+
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:hidden">
+                          {person.user_name}
+                        </td>
+
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
                           {person.resume.points}
                         </td>
