@@ -5,6 +5,8 @@ import ModalTransition from "./modal-transition";
 import { useMutation, useQueryClient } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
+import toast from "react-hot-toast";
+import { userInfo } from "os";
 
 const Modal: FC<{
   isOpen: boolean;
@@ -72,6 +74,11 @@ const Modal: FC<{
       onSuccess: () => {
         queryClient.invalidateQueries("games-history");
         setIsOpen(false);
+        toast.success(
+          `Game succesfully won by ${
+            users.find((user) => user.id === winner)?.first_name
+          } and lost by ${users.find((user) => user.id === looser)?.first_name}`
+        );
       },
     }
   );
