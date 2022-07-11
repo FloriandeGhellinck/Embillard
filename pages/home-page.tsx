@@ -12,10 +12,10 @@ const Home_Page = () => {
         <div className="flex items-center text-center justify-center md:w-6/12 w-full ">
           <ReactTypingEffectDemo />
         </div>
-        <div className="hidden sm:contents">
-          <div className="relative w-3/12 my-52 items-center justify-center sepia  ">
+        <div className="hidden md:contents">
+          <div className="relative w-3/12 my-20 ml-32 items-center justify-center   ">
             <Image
-              src="/BillardGirl.jpg"
+              src="/claudio-schwarz-ymzHjhuxvt8-unsplash.jpg"
               alt="caroussel"
               layout="fill"
               objectFit="cover"

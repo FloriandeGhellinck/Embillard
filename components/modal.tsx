@@ -74,10 +74,15 @@ const Modal: FC<{
       onSuccess: () => {
         queryClient.invalidateQueries("games-history");
         setIsOpen(false);
-        toast.success(
+        toast(
           `Game succesfully won by ${
             users.find((user) => user.id === winner)?.first_name
-          } and lost by ${users.find((user) => user.id === looser)?.first_name}`
+          } and lost by ${
+            users.find((user) => user.id === looser)?.first_name
+          }`,
+          {
+            icon: winType === "🥇" ? "🥇 " : "🎱",
+          }
         );
       },
     }
