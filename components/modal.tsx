@@ -75,7 +75,7 @@ const Modal: FC<{
         queryClient.invalidateQueries("games-history");
         setIsOpen(false);
         toast(
-          `Game succesfully won by ${
+          `Game won by ${
             users.find((user) => user.id === winner)?.first_name
           } and lost by ${
             users.find((user) => user.id === looser)?.first_name
