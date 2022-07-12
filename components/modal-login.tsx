@@ -35,8 +35,7 @@ const Modalsignin: FC<{
 
   const users = usersQuery.data?.users;
 
-  const checkLogin = (e) => {
-    e.preventDefault();
+  const checkLogin = () => {
     const userToLogin = users.find(
       (person) => player === person.id && password === person.password
     );
