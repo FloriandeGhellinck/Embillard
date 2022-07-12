@@ -2,6 +2,7 @@ import React from "react";
 import ReactTypingEffectDemo from "../components/TyppingEffect";
 import Image from "next/image";
 import Signin from "../components/signinbutton";
+import Signout from "../components/signout";
 
 const Home_Page = () => {
   return (
@@ -12,7 +13,10 @@ const Home_Page = () => {
       <div className="h-screen flex ">
         <div className="flex flex-col items-center text-center justify-center md:w-6/12 w-full ">
           <ReactTypingEffectDemo />
-          <Signin />
+          <div className="space-x-3">
+            <Signin />
+            <Signout />
+          </div>
         </div>
         <div className="hidden md:contents">
           <div className="relative w-3/12 my-20 ml-32 items-center justify-center   ">
