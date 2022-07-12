@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
+import { setCookie } from "cookies-next";
 
 const Modalsignin: FC<{
   isOpen: boolean;
@@ -10,26 +11,40 @@ const Modalsignin: FC<{
 }> = ({ setIsOpen, isOpen }) => {
   const [isShown, setIsShown] = useState(false);
 
-  const [player, setPlayer] = useState("");
-  const [password, setPassword] = useState("");
+  const [player, setPlayer] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const isFormValid = player && password;
 
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
 
-  const getUsersQuery = useQuery("users", () =>
+  const usersQuery = useQuery("usersforlogin", () =>
     hasura(gql`
       query GetUsers {
         users {
           first_name
           last_name
           id
+          password
         }
       }
     `)
   );
 
-  const users = getUsersQuery.data?.users;
+  const users = usersQuery.data?.users;
+
+  const checkLogin = (e) => {
+    e.preventDefault();
+    const userToLogin = users.find(
+      (person) => player === person.id && password === person.password
+    );
+    console.log(userToLogin);
+    if (userToLogin) {
+      setCookie("isLoggedIn", true);
+    }
+  };
 
   return (
     <>
@@ -37,10 +52,10 @@ const Modalsignin: FC<{
         <h2 className="text-indigo-600 font-semibold tracking-wide uppercase mb-4">
           Login Page
         </h2>
-        {getUsersQuery.isLoading || !users ? (
+        {usersQuery.isLoading || !users ? (
           "Loading..."
         ) : (
-          <form>
+          <form onSubmit={checkLogin}>
             <div className="text-left space-x-20 mb-5 flex items-center">
               <label htmlFor="player" className="w-10">
                 Player
@@ -50,7 +65,7 @@ const Modalsignin: FC<{
                 id="player"
                 className="ml-8 w-36"
                 onChange={(e) => setPlayer(e.target.value)}
-                value={player}
+                // value={player}
               >
                 <option value={"noone"} disabled>
                   Pick Player
@@ -72,7 +87,7 @@ const Modalsignin: FC<{
                 type={isShown ? "text" : "password"}
                 id="password"
                 required
-                value={password}
+                // value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -86,10 +101,11 @@ const Modalsignin: FC<{
                 className="focus:ring-0"
               ></input>
             </div>
-            <div className="text-center mt-8  ">
+            <div className="text-center mt-8 ">
               <button
                 className="px-5 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-embie-blue-light-600 hover:bg-indigo-700"
                 type="submit"
+                disabled={!isFormValid}
               >
                 Submit
               </button>

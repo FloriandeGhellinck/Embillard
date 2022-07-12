@@ -17,6 +17,7 @@ insert_permissions:
         - first_name
         - id
         - last_name
+        - password
         - user_name
       backend_only: false
 select_permissions:
@@ -26,6 +27,7 @@ select_permissions:
         - first_name
         - id
         - last_name
+        - password
         - user_name
       filter: {}
 update_permissions:
@@ -35,6 +37,7 @@ update_permissions:
         - first_name
         - id
         - last_name
+        - password
         - user_name
       filter: {}
       check: {}

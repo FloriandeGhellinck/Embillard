@@ -21,6 +21,7 @@ const NewGameModal: FC = () => {
           first_name
           last_name
           id
+          password
         }
       }
     `)

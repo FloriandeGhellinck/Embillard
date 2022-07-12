@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { GamesTable } from "../components/games-table";
 import NewGameModal from "../components/newGameModal";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 const Play = () => {
+  const router = useRouter();
+
+  const cookieValue = getCookie("isLoggedIn");
+
+  useEffect(() => {
+    if (!cookieValue) {
+      router.push("/");
+    }
+  }, [cookieValue, router]);
+
+  if (!cookieValue) return <>Loading</>;
+
   return (
     <div className="h-full font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 ">
       <div>
