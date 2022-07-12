@@ -1,6 +1,7 @@
 import React from "react";
 import ReactTypingEffectDemo from "../components/TyppingEffect";
 import Image from "next/image";
+import Signin from "../components/signinbutton";
 
 const Home_Page = () => {
   return (
@@ -9,8 +10,9 @@ const Home_Page = () => {
         <ReactTypingEffectDemo />
       </div> */}
       <div className="h-screen flex ">
-        <div className="flex items-center text-center justify-center md:w-6/12 w-full ">
+        <div className="flex flex-col items-center text-center justify-center md:w-6/12 w-full ">
           <ReactTypingEffectDemo />
+          <Signin />
         </div>
         <div className="hidden md:contents">
           <div className="relative w-3/12 my-20 ml-32 items-center justify-center   ">

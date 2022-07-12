@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import { FC, useState } from "react";
 import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
-import Modal from "./modal";
+import Modal from "./modal-new-game";
 
 // handleNewGame: (e: { looser: string; date: Date; winner: string; typeOfWin: TypeOfWin }) => void
 
