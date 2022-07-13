@@ -6,7 +6,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
 import toast from "react-hot-toast";
-import { userInfo } from "os";
+
+import getUser from "../utils/cookie";
 
 const Modal: FC<{
   isOpen: boolean;
@@ -25,6 +26,8 @@ const Modal: FC<{
 
   const isFormValid = looser && date && winner && winType;
 
+  const user = getUser();
+
   const newGameMutation = useMutation(
     "ey",
     async (e: any) => {
@@ -38,10 +41,12 @@ const Modal: FC<{
             {
               participation_type: "winner",
               user_id: winner,
+              game_confirmed: user.id === winner ? "confirmed" : null,
             },
             {
               participation_type: "looser",
               user_id: looser,
+              game_confirmed: user.id === looser ? "confirmed" : null,
             },
           ],
         },

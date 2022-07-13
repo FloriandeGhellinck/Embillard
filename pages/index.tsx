@@ -1,8 +1,8 @@
-import Home_Page from "./home-page"
-import { FC } from "react"
+import Home_Page from "./home-page";
+import { FC } from "react";
 
 const Home: FC = () => {
-  return <Home_Page />
-}
+  return <Home_Page />;
+};
 
-export default Home
+export default Home;

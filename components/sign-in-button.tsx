@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import Modalsignin from "./modal-login";
-import { useQuery } from "react-query";
-import { hasura } from "../utils/gql";
-import gql from "graphql-tag";
 
 const Signin = () => {
   const [showModal, setShowModal] = useState(false);

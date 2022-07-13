@@ -1,3 +1,5 @@
+import { StringValueNode } from "graphql";
+
 export type TypeOfWin = "🎱" | "🥇" | null;
 
 export type Game = {
@@ -7,4 +9,11 @@ export type Game = {
   winType: TypeOfWin;
 };
 
+export type GameConfirm = "confirmed" | "deleted";
+
 export type GameList = Game[];
+
+export type CookieUser = {
+  name: string;
+  id: string;
+};

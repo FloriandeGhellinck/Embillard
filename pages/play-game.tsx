@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { GamesTable } from "../components/games-table";
-import NewGameModal from "../components/newGameModal";
+import NewGameModal from "../components/new-game-modal";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 

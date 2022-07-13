@@ -1,8 +1,8 @@
 import React from "react";
-import ReactTypingEffectDemo from "../components/TyppingEffect";
+import ReactTypingEffectDemo from "../components/typping-effect";
 import Image from "next/image";
-import Signin from "../components/signinbutton";
-import Signout from "../components/signout";
+import Signin from "../components/sign-in-button";
+import Signout from "../components/sign-out-button";
 
 const Home_Page = () => {
   return (

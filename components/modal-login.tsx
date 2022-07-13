@@ -4,6 +4,8 @@ import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
+import Wrongpassword from "./wrong-password";
 
 const Modalsignin: FC<{
   isOpen: boolean;
@@ -11,8 +13,12 @@ const Modalsignin: FC<{
 }> = ({ setIsOpen, isOpen }) => {
   const [isShown, setIsShown] = useState(false);
 
+  const router = useRouter();
+
   const [player, setPlayer] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [showWrongPassword, setShowWrongPassword] = useState<boolean>(false);
 
   const isFormValid = player && password;
 
@@ -35,13 +41,24 @@ const Modalsignin: FC<{
 
   const users = usersQuery.data?.users;
 
-  const checkLogin = () => {
+  const checkLogin = (e) => {
+    e.preventDefault();
     const userToLogin = users.find(
       (person) => player === person.id && password === person.password
     );
-    console.log(userToLogin);
-    if (userToLogin) {
+    if (!userToLogin) {
+      setShowWrongPassword(true);
+    } else {
       setCookie("isLoggedIn", true);
+      setCookie(
+        "dataUser",
+        JSON.stringify({
+          name: userToLogin.first_name,
+          id: userToLogin.id,
+        })
+      );
+
+      router.push("/play-game");
     }
   };
 
@@ -90,6 +107,7 @@ const Modalsignin: FC<{
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            {showWrongPassword ? <Wrongpassword /> : null}
             <div className="mt-3 sm:ml-10 ml-16">
               <label htmlFor="checkbox">Show password ? </label>
               <input

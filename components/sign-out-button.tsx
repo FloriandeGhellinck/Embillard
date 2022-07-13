@@ -3,6 +3,7 @@ import { deleteCookie } from "cookies-next";
 const Signout = () => {
   const moovecookie = () => {
     deleteCookie("isLoggedIn");
+    deleteCookie("dataUser");
   };
 
   return (
