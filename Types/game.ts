@@ -9,11 +9,25 @@ export type Game = {
   winType: TypeOfWin;
 };
 
-export type GameConfirm = "confirmed" | "deleted";
+export type GameConfirm = "confirmed" | "deleted" | null;
 
 export type GameList = Game[];
 
 export type CookieUser = {
   name: string;
   id: string;
+};
+
+export type UserGame = {
+  first_name: string;
+  last_name: string;
+  user_name: string;
+  id: string;
+  participations: {
+    participation_type: "winner" | "looser";
+    game: {
+      win_type: TypeOfWin;
+      participations: any[];
+    };
+  }[];
 };

@@ -6,8 +6,11 @@ import { formatDate, formatDateWithoutYears } from "../utils/date";
 import { GameConfirm } from "../Types/game";
 import NewGameModal from "./new-game-modal";
 import { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const Welcomeprofile = () => {
+  const [mounted, setMounted] = useState(false);
+
   const user = getUser();
   console.log(user);
 
@@ -79,6 +82,9 @@ const Welcomeprofile = () => {
     updateParticipation.mutate({ participationID, validatedStatus });
   };
 
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
     <div className="max-w-7xl text-center mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:justify-between min-h-screen">
       <Toaster position="bottom-center" />
@@ -98,7 +104,7 @@ const Welcomeprofile = () => {
         <ul
           role="list"
           // className="grid grid-flow-col auto-cols-max gap-6  "
-          className="grid content-around grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6"
+          className="grid place-items-center grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6"
         >
           {gamesNotConfirmedYet.map((game) => {
             const winner = game.game.participations.find(

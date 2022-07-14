@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
 import { hasura } from "../utils/gql";
 import gql from "graphql-tag";
-import { TypeOfWin } from "../Types/game";
+import { GameConfirm, TypeOfWin, UserGame } from "../Types/game";
+import { useEffect } from "react";
 
 const RankingTable = () => {
   const gamesFromDatabase = useQuery("games-history-for-each-user", () =>
@@ -13,10 +14,19 @@ const RankingTable = () => {
             last_name
             user_name
             id
-            participations(limit: 10, order_by: { game: { date: desc } }) {
+            participations(
+              limit: 10
+              order_by: { game: { date: desc } }
+              where: { game_confirmed: { _eq: "confirmed" } }
+            ) {
               participation_type
               game {
                 win_type
+                participations(
+                  where: { game_confirmed: { _eq: "confirmed" } }
+                ) {
+                  game_confirmed
+                }
               }
             }
           }
@@ -26,21 +36,15 @@ const RankingTable = () => {
   );
 
   //const dataAboutGames = gamesFromDatabase.data?.users
-  const dataAboutGames: {
-    first_name: string;
-    last_name: string;
-    user_name: string;
-    id: string;
-    participations: {
-      participation_type: "winner" | "looser";
-      game: {
-        win_type: TypeOfWin;
-      };
-    }[];
-  }[] = gamesFromDatabase.isLoading ? [] : gamesFromDatabase.data.users;
+  const dataAboutGames: UserGame[] = gamesFromDatabase.isLoading
+    ? []
+    : gamesFromDatabase.data.users;
 
-  const getPointsFromUser = (person) => {
-    const participations = person.participations;
+  const getPointsFromUser = (person: UserGame) => {
+    const participations = person.participations.filter(
+      (doubleconfirmed) => doubleconfirmed.game.participations.length === 2
+    );
+    console.log(participations);
 
     const winGamesByMedal = participations.filter(
       (participation) =>
