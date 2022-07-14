@@ -86,7 +86,7 @@ const Welcomeprofile = () => {
   if (!mounted) return null;
 
   return (
-    <div className="max-w-7xl text-center mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:justify-between min-h-screen">
+    <div className=" text-center w-screen py-12  lg:justify-between min-h-screen">
       <Toaster position="bottom-center" />
       <div className="mb-5 font-extrabold tracking-tight text-gray-900 sm:text-4xl ">
         <h2 className="block text-3xl text-center">
@@ -96,15 +96,15 @@ const Welcomeprofile = () => {
           {user.name}
         </h2>
       </div>
-      <div className="mb-4">
+      <div className="mb-4 ">
         <NewGameModal />
       </div>
-      <div className="mx-auto  ">
+      <div className="px-5 ">
         {confirmationQuery.isLoading && <h1>Loading</h1>}
         <ul
           role="list"
           // className="grid grid-flow-col auto-cols-max gap-6  "
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 "
         >
           {gamesNotConfirmedYet.map((game) => {
             const winner = game.game.participations.find(

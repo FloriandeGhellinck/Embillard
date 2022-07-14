@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 import { FC, useState } from "react";
 import { useQuery } from "react-query";
+import { GamerUser } from "../Types/game";
 import { formatDate, formatDateWithoutYears } from "../utils/date";
 import { hasura } from "../utils/gql";
 
@@ -21,6 +22,7 @@ const GamesTable: FC = () => {
                 last_name
                 user_name
               }
+              game_confirmed
             }
             id
           }
@@ -30,7 +32,16 @@ const GamesTable: FC = () => {
     )
   );
 
-  const usersGames = usersGamesQuery.data?.games;
+  const usersGames = usersGamesQuery.isLoading
+    ? []
+    : usersGamesQuery.data?.games;
+
+  // const usersGamesFilteredData = usersGames.map((game) => {
+  //   return game.participations.filter(
+  //     (participation) => participation.game_confirmed === "confirmed"
+  //   );
+  // });
+  // console.log(usersGamesFilteredData);
 
   return (
     <div className="rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">

@@ -31,3 +31,18 @@ export type UserGame = {
     };
   }[];
 };
+
+export type GamerUser = {
+  win_type: TypeOfWin;
+  date: string;
+  participations: {
+    participation_type: "winner" | "looser";
+    user: {
+      first_name: string;
+      last_name: string;
+      user_name: string;
+    };
+    game_confirmed: GameConfirm;
+  };
+  id: string;
+};

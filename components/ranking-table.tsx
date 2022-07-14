@@ -102,7 +102,7 @@ const RankingTable = () => {
   });
 
   return (
-    <div className="relative px-4 sm:px-6 lg:px-8 flex justify-center overflow-scroll ">
+    <div className="mx-1 px-4 sm:px-6 lg:px-8 flex justify-center ">
       {/* <div className="sm:flex sm:items-center"></div> */}
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8 ">
@@ -119,7 +119,7 @@ const RankingTable = () => {
                     </th>
                     <th
                       scope="col"
-                      className=" px-3 py-3.5 text-center text-sm font-semibold text-gray-900 "
+                      className=" px-3 py-3.5  sm: text-left text-sm font-semibold text-gray-900 "
                     >
                       Name
                     </th>
