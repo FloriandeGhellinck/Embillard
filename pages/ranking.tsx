@@ -9,7 +9,7 @@ const Ranking = () => {
   if (!mounted) return null;
 
   return (
-    <div className="h-screen font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 ">
+    <div className="min-h-screen font-poppins bg-gradient-to-r from-embie-blue-light-300 via-embie-yellow-200 to-embie-orange-200 mb-5">
       <Rules />
       <RankingTable />
     </div>
