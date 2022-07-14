@@ -5,6 +5,7 @@ import getUser from "../utils/cookie";
 import { formatDate, formatDateWithoutYears } from "../utils/date";
 import { GameConfirm } from "../Types/game";
 import NewGameModal from "./new-game-modal";
+import { Toaster } from "react-hot-toast";
 
 const Welcomeprofile = () => {
   const user = getUser();
@@ -80,6 +81,7 @@ const Welcomeprofile = () => {
 
   return (
     <div className="max-w-7xl text-center mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:justify-between min-h-screen">
+      <Toaster position="bottom-center" />
       <div className="mb-5 font-extrabold tracking-tight text-gray-900 sm:text-4xl ">
         <h2 className="block text-3xl text-center">
           Welcome on your profile page
@@ -88,7 +90,9 @@ const Welcomeprofile = () => {
           {user.name}
         </h2>
       </div>
-      <NewGameModal />
+      <div className="mb-4">
+        <NewGameModal />
+      </div>
       <div className="mx-auto  ">
         {confirmationQuery.isLoading && <h1>Loading</h1>}
         <ul

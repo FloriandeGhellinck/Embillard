@@ -58,7 +58,7 @@ const Modalsignin: FC<{
         })
       );
 
-      router.push("/play-game");
+      router.push("/profile");
     }
   };
 
