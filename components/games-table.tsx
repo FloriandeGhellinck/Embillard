@@ -34,11 +34,10 @@ const GamesTable: FC = () => {
 
   return (
     <div className="rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
-      <div className="sm:text-center ">
-        <h2 className="text-3xl text-center font-extrabold tracking-tight sm:text-4xl sm:underline underline-offset-8 text-gray-400 sm:text-gray-600">
-          They had fun together
-        </h2>
-      </div>
+      <h2 className="text-3xl text-center font-extrabold tracking-tight sm:text-4xl  text-gray-900">
+        They had fun together
+      </h2>
+      <div className="sm:text-center "></div>
       <div className="px-4 sm:px-6 lg:px-8 ">
         <div className="mt-8 flex flex-col ">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

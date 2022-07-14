@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "react-query";
 import getUser from "../utils/cookie";
 import { formatDate, formatDateWithoutYears } from "../utils/date";
 import { GameConfirm } from "../Types/game";
+import NewGameModal from "./new-game-modal";
 
 const Welcomeprofile = () => {
   const user = getUser();
@@ -78,8 +79,8 @@ const Welcomeprofile = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:justify-between">
-      <div className="mb-5 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+    <div className="max-w-7xl text-center mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:justify-between min-h-screen">
+      <div className="mb-5 font-extrabold tracking-tight text-gray-900 sm:text-4xl ">
         <h2 className="block text-3xl text-center">
           Welcome on your profile page
         </h2>
@@ -87,7 +88,7 @@ const Welcomeprofile = () => {
           {user.name}
         </h2>
       </div>
-
+      <NewGameModal />
       <div className="mx-auto  ">
         {confirmationQuery.isLoading && <h1>Loading</h1>}
         <ul
