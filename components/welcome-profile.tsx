@@ -104,7 +104,7 @@ const Welcomeprofile = () => {
         <ul
           role="list"
           // className="grid grid-flow-col auto-cols-max gap-6  "
-          className="grid place-items-center grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6"
         >
           {gamesNotConfirmedYet.map((game) => {
             const winner = game.game.participations.find(
