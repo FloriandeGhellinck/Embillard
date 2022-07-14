@@ -177,19 +177,17 @@ const RankingTable = () => {
                         <td className="whitespace-nowrap font-bold py-4  pl-1  sm:pr-3 text-sm text-gray-900 sm:pl-6">
                           #{i + 1}
                         </td>
-                        <div className="hidden sm:contents">
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500  ">
+                          <span className="hidden sm:contents">
+                            {" "}
                             <span className="font-bold">
+                              {" "}
                               {person.first_name.slice(0, 1)}.{" "}
                             </span>
                             {person.last_name}
-                          </td>
-                        </div>
-                        <div className="sm:hidden">
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 ">
-                            {person.user_name}
-                          </td>
-                        </div>
+                          </span>
+                          <span className="sm:hidden"> {person.user_name}</span>
+                        </td>
 
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">
                           {person.resume.points}
