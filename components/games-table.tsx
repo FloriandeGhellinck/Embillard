@@ -12,7 +12,17 @@ const GamesTable: FC = () => {
     hasura(
       gql`
         query UserGames($limit: Int!) {
-          games(limit: $limit, order_by: { date: desc }) {
+          games(
+            limit: $limit
+            order_by: { date: desc }
+            where: {
+              participations: {
+                user: {
+                  participations: { game_confirmed: { _eq: "confirmed" } }
+                }
+              }
+            }
+          ) {
             win_type
             date
             participations {
@@ -22,7 +32,6 @@ const GamesTable: FC = () => {
                 last_name
                 user_name
               }
-              game_confirmed
             }
             id
           }
@@ -35,6 +44,15 @@ const GamesTable: FC = () => {
   const usersGames = usersGamesQuery.isLoading
     ? []
     : usersGamesQuery.data?.games;
+
+  console.log(usersGames);
+
+  // const arrayFiltered = usersGames.filter(
+  //   (participation) =>
+  //     participation.participations.game_confirmed === "confirmed"
+  // );
+
+  // console.log("arrayfiltered", arrayFiltered);
 
   // const usersGamesFilteredData = usersGames.map((game) => {
   //   return game.participations.filter(
@@ -93,6 +111,13 @@ const GamesTable: FC = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 sm:hidden">
                   {usersGames?.map((game) => {
+                    // const winner = game.find(
+                    //   (e) => e.participation_type === "winner"
+                    // ).user;
+                    // const looser = game.find(
+                    //   (e) => e.participation_type === "looser"
+                    // ).user;
+
                     const participations = game.participations;
 
                     const winner = participations.find(
