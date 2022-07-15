@@ -29,8 +29,7 @@ const Play = () => {
         <Toaster position="bottom-center" />
       </div>
       <div className="flex flex-col items-center justify-center py-3 sm:py-8">
-        {/* <NewGameModal /> */}
-        <div className="justify-center w-11/12 border-rounded-full">
+        <div className="justify-center lg:w-8/12 border-rounded-full mx-1">
           <div className="py-3 sm:py-8">
             <div className="mx-auto max-w-md sm:max-w-3xl  lg:max-w-7xl lg:px-8w-8/12 ">
               <GamesTable />
