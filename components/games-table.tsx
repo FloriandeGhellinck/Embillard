@@ -20,6 +20,7 @@ const GamesTable: FC = () => {
                 user: {
                   participations: { game_confirmed: { _eq: "confirmed" } }
                 }
+                game_confirmed: { _eq: "confirmed" }
               }
             }
           ) {
@@ -45,7 +46,7 @@ const GamesTable: FC = () => {
     ? []
     : usersGamesQuery.data?.games;
 
-  console.log(usersGames);
+  console.log("usersGames", usersGames);
 
   // const arrayFiltered = usersGames.filter(
   //   (participation) =>
