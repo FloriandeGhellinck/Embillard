@@ -40,6 +40,8 @@ const RankingTable = () => {
     ? []
     : gamesFromDatabase.data.users;
 
+  console.log(dataAboutGames, 1);
+
   const getPointsFromUser = (person: UserGame) => {
     const participations = person.participations.filter(
       (doubleconfirmed) => doubleconfirmed.game.participations.length === 2

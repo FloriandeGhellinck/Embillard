@@ -41,7 +41,3 @@ update_permissions:
         - user_name
       filter: {}
       check: {}
-delete_permissions:
-  - role: anonymous
-    permission:
-      filter: {}
