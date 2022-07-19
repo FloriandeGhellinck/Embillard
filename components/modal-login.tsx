@@ -33,7 +33,6 @@ const Modalsignin: FC<{
           first_name
           last_name
           id
-          password
         }
       }
     `)
@@ -41,20 +40,30 @@ const Modalsignin: FC<{
 
   const users = usersQuery.data?.users;
 
-  const checkLogin = (e) => {
+  const checkLogin = async (e) => {
     e.preventDefault();
-    const userToLogin = users.find(
-      (person) => player === person.id && password === person.password
-    );
+
+    const userToLogin = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        player,
+        password,
+      }),
+    });
+
     if (!userToLogin) {
       setShowWrongPassword(true);
     } else {
+      const user = await userToLogin.json();
       setCookie("isLoggedIn", true);
       setCookie(
         "dataUser",
         JSON.stringify({
-          name: userToLogin.first_name,
-          id: userToLogin.id,
+          name: user.name,
+          id: user.id,
         })
       );
 
