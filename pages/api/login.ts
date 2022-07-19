@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hasura } from "../../utils/gql";
 import { serialize } from "cookie";
-import { setCookie } from "cookies-next";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,6 +18,7 @@ export default async function handler(
         users_by_pk(id: $id) {
           password
           first_name
+          id
         }
       }
     `,

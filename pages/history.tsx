@@ -9,20 +9,20 @@ import Head from "next/head";
 const Play = () => {
   const [mounted, setMounted] = useState(false);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  const cookieValue = getCookie("isLoggedIn");
+  // const cookieValue = getCookie("isLoggedIn");
 
-  useEffect(() => {
-    if (!cookieValue) {
-      router.push("/");
-    }
-  }, [cookieValue, router]);
+  // useEffect(() => {
+  //   if (!cookieValue) {
+  //     router.push("/");
+  //   }
+  // }, [cookieValue, router]);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  // useEffect(() => setMounted(true), []);
+  // if (!mounted) return null;
 
-  if (!cookieValue) return <>Loading</>;
+  // if (!cookieValue) return <>Loading</>;
 
   return (
     <>
