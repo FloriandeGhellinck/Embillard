@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hasura } from "../../utils/gql";
 import { serialize } from "cookie";
+import getUser from "../../utils/cookie";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,23 +11,30 @@ export default async function handler(
 ) {
   const { body } = req;
 
-  const { player, password } = body;
+  const { email, password } = body;
 
   const getUserPassword = await hasura(
     gql`
-      query GetUsers($id: uuid!) {
-        users_by_pk(id: $id) {
-          password
+      query GetUsers($id: String) {
+        users(where: { e_mail: { _eq: $id } }) {
           first_name
+          last_name
           id
+          password
         }
       }
     `,
-    { id: player }
+    { id: email }
   );
 
-  const passwordFromDB = getUserPassword.users_by_pk.password;
-  const playerByFirstName = getUserPassword.users_by_pk.first_name;
+  console.log(getUserPassword);
+
+  if (getUserPassword.users.length === 0) return res.status(404).send("");
+
+  const user = getUserPassword.users[0];
+
+  const passwordFromDB = user.password;
+  const playerByFirstName = user.first_name;
 
   console.log(passwordFromDB === password);
 
@@ -37,12 +45,12 @@ export default async function handler(
         "dataUser",
         JSON.stringify({
           name: playerByFirstName,
-          id: player,
+          id: user.id,
         }),
         { path: "/", maxAge: 604800 }
       )
     );
-    return res.status(200).json({ name: playerByFirstName, id: player });
+    return res.status(200).json({ name: playerByFirstName, id: email });
   }
   res.status(400).send("");
 

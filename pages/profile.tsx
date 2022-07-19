@@ -9,11 +9,11 @@ const Profile = () => {
 
   const cookieValue = getCookie("dataUser");
 
-  useEffect(() => {
-    if (!cookieValue) {
-      router.push("/");
-    }
-  }, [cookieValue, router]);
+  // useEffect(() => {
+  //   if (!cookieValue) {
+  //     router.push("/");
+  //   }
+  // }, [cookieValue, router]);
 
   return (
     <>

@@ -14,11 +14,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const cookieValue = getCookie("dataUser");
 
-  // useEffect(() => {
-  //   if (!cookieValue) {
-  //     router.push("/login");
-  //   }
-  // }, [cookieValue, router]);
+  useEffect(() => {
+    if (!cookieValue) {
+      router.push("/login");
+    }
+  }, [cookieValue, router]);
 
   return (
     <>

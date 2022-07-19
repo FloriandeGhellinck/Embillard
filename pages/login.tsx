@@ -2,55 +2,42 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import gql, { hasura } from "../utils/gql";
+import Wrongpassword from "../components/wrong-password";
 
 const Loginpage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isShown, setIsShown] = useState<boolean>(false);
 
   const [password, setPassword] = useState<string>("");
-  const [player, setPlayer] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const [showWrongPassword, setShowWrongPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const isFormValid = player && password;
+  const isFormValid = email && password;
 
   const togglePassword = () => {
     setIsShown((isShown) => !isShown);
   };
 
-  const usersQuery = useQuery("usersforlogin", () =>
-    hasura(gql`
-      query GetUsers {
-        users {
-          first_name
-          last_name
-          id
-        }
-      }
-    `)
-  );
-
-  const users = usersQuery.data?.users;
-
   const checkLogin = async (e) => {
     e.preventDefault();
 
-    const userToLogin = await fetch("/api/login", {
+    const requestToLogin = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        player,
+        email,
         password,
       }),
     });
 
-    if (!userToLogin) {
-      setShowWrongPassword(true);
-    } else {
+    setShowWrongPassword(requestToLogin.status !== 200);
+
+    if (requestToLogin.status === 200) {
       router.push("/profile");
     }
   };
@@ -82,15 +69,15 @@ const Loginpage = () => {
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  User Name
+                  Email
                 </label>
                 <div className="mt-1">
                   <input
                     id="username"
                     name="username"
-                    type="text"
+                    type="email"
                     autoComplete="email"
-                    onChange={(e) => setPlayer(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400  sm:text-sm"
                   />
@@ -116,7 +103,9 @@ const Loginpage = () => {
                   />
                 </div>
               </div>
+
               {showWrongPassword ? <Wrongpassword /> : null}
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <label

@@ -19,8 +19,8 @@ const Play = () => {
   //   }
   // }, [cookieValue, router]);
 
-  // useEffect(() => setMounted(true), []);
-  // if (!mounted) return null;
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   // if (!cookieValue) return <>Loading</>;
 

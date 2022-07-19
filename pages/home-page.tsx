@@ -21,7 +21,7 @@ const Home_Page = () => {
           <div className="flex flex-col items-center text-center justify-center md:w-6/12 w-full ">
             <ReactTypingEffectDemo />
             <div className="space-x-3">
-              <Signin />
+              {/* <Signin /> */}
               <Signout />
             </div>
           </div>
