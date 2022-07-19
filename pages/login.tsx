@@ -44,7 +44,7 @@ const Loginpage = () => {
 
   return (
     <>
-      <div className="min-h-full flex flex-col  py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-embie-orange-200 via-embie-yellow-200 to-embie-blue-light-300">
+      <div className="min-h-full flex flex-col mx- 1 py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-embie-orange-200 via-embie-yellow-200 to-embie-blue-light-300">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-12 w-auto"
@@ -56,8 +56,8 @@ const Loginpage = () => {
           </h2>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="mt-8 mx-1 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10">
             <form
               className="space-y-6"
               action="#"
