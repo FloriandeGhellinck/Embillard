@@ -7,7 +7,7 @@ import Head from "next/head";
 const Profile = () => {
   const router = useRouter();
 
-  const cookieValue = getCookie("isLoggedIn");
+  const cookieValue = getCookie("dataUser");
 
   useEffect(() => {
     if (!cookieValue) {

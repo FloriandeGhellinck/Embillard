@@ -57,16 +57,6 @@ const Modalsignin: FC<{
     if (!userToLogin) {
       setShowWrongPassword(true);
     } else {
-      const user = await userToLogin.json();
-      setCookie("isLoggedIn", true);
-      setCookie(
-        "dataUser",
-        JSON.stringify({
-          name: user.name,
-          id: user.id,
-        })
-      );
-
       router.push("/profile");
     }
   };

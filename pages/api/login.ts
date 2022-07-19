@@ -2,6 +2,8 @@
 import gql from "graphql-tag";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { hasura } from "../../utils/gql";
+import { serialize } from "cookie";
+import { setCookie } from "cookies-next";
 
 export default async function handler(
   req: NextApiRequest,
@@ -29,6 +31,17 @@ export default async function handler(
   console.log(passwordFromDB === password);
 
   if (passwordFromDB === password) {
+    res.setHeader(
+      "Set-Cookie",
+      serialize(
+        "dataUser",
+        JSON.stringify({
+          name: playerByFirstName,
+          id: player,
+        }),
+        { path: "/", maxAge: 604800 }
+      )
+    );
     return res.status(200).json({ name: playerByFirstName, id: player });
   }
   res.status(400).send("");
