@@ -164,7 +164,7 @@ const HistoricByID = () => {
                                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         <div className="text-gray-900">
                                           <Link href={`/history/${winner.id}`}>
-                                            <a className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                                            <a className="hover:underline inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
                                               <span className="hidden sm:contents">
                                                 {winner.first_name}{" "}
                                                 {winner.last_name}
@@ -178,7 +178,7 @@ const HistoricByID = () => {
                                       </td>
                                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         <Link href={`/history/${looser.id}`}>
-                                          <a className="">
+                                          <a className="hover:underline">
                                             <span className="hidden sm:contents">
                                               {looser.first_name}{" "}
                                               {looser.last_name}
