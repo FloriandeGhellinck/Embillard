@@ -1,26 +1,16 @@
 import gql from "graphql-tag";
+import Link from "next/link";
 import { FC, useState } from "react";
 import { useQuery } from "react-query";
-import { GamerUser } from "../Types/game";
+
 import { formatDate, formatDateWithHours } from "../utils/date";
 import { hasura } from "../utils/gql";
 import NewGameModal from "./new-game-modal";
 
 const GamesTable: FC = () => {
-  const people = [
-    {
-      name: "Lindsay Walton",
-      title: "Front-end Developer",
-      department: "Optimization",
-      email: "lindsay.walton@example.com",
-      role: "Member",
-      image:
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    // More people...
-  ];
-
   const [limit, setLimit] = useState(5);
+
+  const [test, setTest] = useState<string>("");
 
   const usersGamesQuery = useQuery(["games-history", limit], () =>
     hasura(
@@ -46,6 +36,7 @@ const GamesTable: FC = () => {
                 first_name
                 last_name
                 user_name
+                id
               }
             }
             id
@@ -60,21 +51,7 @@ const GamesTable: FC = () => {
     ? []
     : usersGamesQuery.data?.games;
 
-  console.log("usersGames", usersGames);
-
-  // const arrayFiltered = usersGames.filter(
-  //   (participation) =>
-  //     participation.participations.game_confirmed === "confirmed"
-  // );
-
-  // console.log("arrayfiltered", arrayFiltered);
-
-  // const usersGamesFilteredData = usersGames.map((game) => {
-  //   return game.participations.filter(
-  //     (participation) => participation.game_confirmed === "confirmed"
-  //   );
-  // });
-  // console.log(usersGamesFilteredData);
+  console.log(test);
 
   return (
     <div className="rounded-2xl px-6 py-10 overflow-hidden shadow-2xl sm:px-12 sm:py-20 bg-gray-100">
@@ -157,24 +134,29 @@ const GamesTable: FC = () => {
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             <div className="text-gray-900">
-                              <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                                <span className="hidden sm:contents">
-                                  {winner.first_name} {winner.last_name}
-                                </span>
-                                <span className="sm:hidden">
-                                  {winner.user_name}{" "}
-                                </span>
-                              </span>
+                              <Link href={`/history/${winner.id}`}>
+                                <a className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                                  <span className="hidden sm:contents">
+                                    {winner.first_name} {winner.last_name}
+                                  </span>
+                                  <span className="sm:hidden">
+                                    {winner.user_name}{" "}
+                                  </span>
+                                </a>
+                              </Link>
                             </div>
-                            {/* <div className="text-gray-500">{"test"}</div> */}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            <span className="hidden sm:contents">
-                              {looser.first_name} {looser.last_name}
-                            </span>
-                            <span className="sm:hidden">
-                              {looser.user_name}
-                            </span>
+                            <Link href={`/history/${looser.id}`}>
+                              <a className="">
+                                <span className="hidden sm:contents">
+                                  {looser.first_name} {looser.last_name}
+                                </span>
+                                <span className="sm:hidden">
+                                  {looser.user_name}
+                                </span>
+                              </a>
+                            </Link>
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             {game.win_type}

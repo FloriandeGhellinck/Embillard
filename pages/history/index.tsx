@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { GamesTable } from "../components/games-table";
-import NewGameModal from "../components/new-game-modal";
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
+import { GamesTable } from "../../components/games-table";
+
 import Head from "next/head";
 
 const Play = () => {
   const [mounted, setMounted] = useState(false);
 
-  // const router = useRouter();
-
-  // const cookieValue = getCookie("isLoggedIn");
-
-  // useEffect(() => {
-  //   if (!cookieValue) {
-  //     router.push("/");
-  //   }
-  // }, [cookieValue, router]);
-
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
-
-  // if (!cookieValue) return <>Loading</>;
 
   return (
     <>

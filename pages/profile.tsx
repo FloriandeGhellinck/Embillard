@@ -1,20 +1,8 @@
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Welcomeprofile from "../components/welcome-profile";
 import Head from "next/head";
 
 const Profile = () => {
-  const router = useRouter();
-
-  const cookieValue = getCookie("dataUser");
-
-  // useEffect(() => {
-  //   if (!cookieValue) {
-  //     router.push("/");
-  //   }
-  // }, [cookieValue, router]);
-
   return (
     <>
       <Head>
